@@ -58,7 +58,9 @@ create table if not exists events
             on delete cascade,
     total_stars         integer,
     review_counter      integer,
-    rating              numeric
+    rating              decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored,
+    start_time          timestamp not null,
+    end_time          timestamp not null
 );
 
 create table if not exists reviews_event

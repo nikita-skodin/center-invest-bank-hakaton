@@ -3,6 +3,7 @@ package com.bank.dto;
 import com.bank.models.Address;
 import com.bank.models.ReviewForEvent;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.Instant;
@@ -18,6 +19,7 @@ public class EventDTO {
 
     private Long id;
 
+    @NotBlank
     private String title;
 
     private String description;

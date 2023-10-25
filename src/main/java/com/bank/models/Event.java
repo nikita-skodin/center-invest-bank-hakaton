@@ -56,4 +56,10 @@ public class Event {
     @OneToMany(mappedBy = "event")
     @Builder.Default
     private List<ReviewForEvent> review = new ArrayList<>();
+
+    @Column(name = "start_time")
+    private Instant startTime;
+
+    @Column(name = "end_time")
+    private Instant endTime;
 }
