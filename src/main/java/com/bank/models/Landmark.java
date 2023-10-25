@@ -42,7 +42,7 @@ public class Landmark {
 
     @OneToMany(mappedBy = "landmark")
     @Builder.Default
-    private List<ReviewForLandmark> reviews = new ArrayList<>();
+    private List<ReviewLandmark> reviews = new ArrayList<>();
 
 
 }

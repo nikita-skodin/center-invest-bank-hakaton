@@ -55,5 +55,5 @@ public class Event {
 
     @OneToMany(mappedBy = "event")
     @Builder.Default
-    private List<ReviewForEvent> review = new ArrayList<>();
+    private List<ReviewEvent> review = new ArrayList<>();
 }
