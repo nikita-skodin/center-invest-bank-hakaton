@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "security.jwt",
+      "type": "com.bank.props.JWTProperties",
+      "sourceType": "com.bank.props.JWTProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "security.jwt.access",
+      "type": "java.lang.Long",
+      "sourceType": "com.bank.props.JWTProperties"
+    },
+    {
+      "name": "security.jwt.refresh",
+      "type": "java.lang.Long",
+      "sourceType": "com.bank.props.JWTProperties"
+    },
+    {
+      "name": "security.jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.bank.props.JWTProperties"
+    }
+  ],
+  "hints": []
+}
