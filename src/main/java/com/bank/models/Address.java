@@ -3,6 +3,7 @@ package com.bank.models;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,18 +22,11 @@ public class Address {
     @Id
     private Long id;
 
-    @Column(name = "country")
-    @NotNull
-    private String country;
+    @Column(name="name")
+    private String address;
 
-    @Column(name = "city")
-    @NotNull
-    private String city;
-
-    @NotNull
-    @Column(name="street")
-    private String street;
-
+    @Column(name = "coordinates")
+    private String coordinates;
 
 
 }

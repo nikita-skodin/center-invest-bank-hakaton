@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -52,5 +53,12 @@ public class User{
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Rating rating;
+
+    @ManyToMany
+    List<Event> events;
+
+    @ManyToMany
+    List<Landmark> landmarks;
+
 
 }

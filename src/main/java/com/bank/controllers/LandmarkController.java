@@ -1,20 +1,18 @@
 package com.bank.controllers;
 
+import com.bank.dto.LandmarkDTO;
 import com.bank.models.Landmark;
 import com.bank.service.LandmarkService;
 import com.bank.utils.mappers.impl.LandmarkMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/landmarks")
 @RequiredArgsConstructor
-public class LandmakrController extends MainController{
+public class LandmarkController extends MainController{
 
     private final LandmarkService landmarkService;
     private final LandmarkMapper landmarkMapper;
@@ -29,4 +27,22 @@ public class LandmakrController extends MainController{
             @PathVariable("landmark_id") Long id){
         return new ResponseEntity<>(landmarkMapper.toDTO(landmarkService.getById(id)), HttpStatus.OK);
     }
+
+    @GetMapping("/{address}")
+    public ResponseEntity<Object> getByAddress(@PathVariable ("address")String address){
+        return new ResponseEntity<>(landmarkMapper.toDTOs(landmarkService.getAllByAddress(address)),HttpStatus.OK);
+
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Object> save(@RequestBody LandmarkDTO landmark){
+
+        landmarkService.save(landmarkMapper.fromDTO(landmark));
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+
+
+
+
 }

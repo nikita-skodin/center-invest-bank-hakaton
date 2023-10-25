@@ -1,5 +1,7 @@
 package com.bank.dto;
 
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,4 +15,7 @@ public class LandmarkDTO {
     private String description;
     private AddressDTO address;
     private Double rating;
+    private int reviewCounter;
+    private String contactNumber;
+    private String workingHours;
 }
