@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -29,10 +30,12 @@ public class Event {
     @Column(name = "image")
     @CollectionTable(name = "events_images")
     @ElementCollection
-    private List<String> images;
+    @Builder.Default
+    private List<String> images = new ArrayList<>();
 
     @Column(name = "date_of_publishment")
-    private Instant dateOfPublish;
+    @Builder.Default
+    private Instant dateOfPublish = Instant.now();
 
     @Column(name = "date_of_event")
     private Instant dateOfEvent;
@@ -51,5 +54,6 @@ public class Event {
     private double rating;
 
     @OneToMany(mappedBy = "event")
-    private List<ReviewForEvent> review;
+    @Builder.Default
+    private List<ReviewForEvent> review = new ArrayList<>();
 }
