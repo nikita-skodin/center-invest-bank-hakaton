@@ -1,6 +1,7 @@
 package com.bank.service;
 
 
+import com.bank.dto.LandmarkDTO;
 import com.bank.exceptions.BagRequestException;
 import com.bank.exceptions.NotFoundException;
 import com.bank.exceptions.ResourceNotFoundException;
@@ -41,12 +42,15 @@ public class LandmarkService {
         return landMarkRepository.findAllByTitle(address);
     }
 
+    @Transactional
     public void save(Landmark landmark){
         landMarkRepository.findByTitle(landmark.getTitle()).orElseThrow(()
                 -> new BagRequestException("Landmark with this title already exists"));
 
     }
 
-
-
+    @Transactional
+    public void update(Landmark landmark) {
+        landMarkRepository.save(landmark);
+    }
 }
