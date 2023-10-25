@@ -1,5 +1,6 @@
 package com.bank.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 
@@ -9,6 +10,6 @@ public class UserDTO {
     private String username;
     private String email;
     private String password;
-    @JsonView()
-    private String passwordConfiramtion;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String passwordConfirmation;
 }

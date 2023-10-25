@@ -26,4 +26,5 @@ public class LandmarkService {
         return landMarkRepository.findAll();
     }
 
+
 }

@@ -1,23 +1,24 @@
 package com.bank.controllers;
 
+import com.bank.dto.LandmarkDTO;
 import com.bank.models.Landmark;
 import com.bank.service.LandmarkService;
 import com.bank.utils.mappers.impl.LandmarkMapper;
+import com.bank.validators.LandmarkDTOValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/landmarks")
 @RequiredArgsConstructor
-public class LandmakrController extends MainController{
+public class LandmarkController extends MainController{
 
     private final LandmarkService landmarkService;
     private final LandmarkMapper landmarkMapper;
+    private final LandmarkDTOValidator landmarkDTOValidator;
 
     @GetMapping
     public ResponseEntity<Object> getAll(){
@@ -28,5 +29,16 @@ public class LandmakrController extends MainController{
     public ResponseEntity<Object> getById(
             @PathVariable("landmark_id") Long id){
         return new ResponseEntity<>(landmarkMapper.toDTO(landmarkService.getById(id)), HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> createNewLandmark(@RequestBody LandmarkDTO landmarkDTO, BindingResult bindingResult){
+        landmarkDTOValidator.validate(landmarkDTO, bindingResult);
+        checkBindingResult(bindingResult);
+        Landmark landmark = landmarkMapper.fromDTO(landmarkDTO);
+        System.out.println(landmark.getTitle());
+        System.out.println(landmark.getAddress().getCountry());
+        //landmarkService.save() TODO
+        return null;
     }
 }
