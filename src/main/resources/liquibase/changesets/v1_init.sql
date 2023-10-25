@@ -38,8 +38,6 @@ create table if not exists landmarks(
     total_stars decimal not null,
     review_counter int not null,
     rating decimal
-
-
 );
 
 -- create table if not exists reviews_event
@@ -58,3 +56,9 @@ create table if not exists reviews_landmark(
     stars    int default 0,
     landmark_id bigint references landmarks (id) not null
 );
+
+
+-- create table if not exists posts_images(
+--     post_id bigint not null references events(id) on delete cascade,
+--     image varchar(255) not null
+-- );

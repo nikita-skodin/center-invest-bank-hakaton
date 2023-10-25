@@ -2,7 +2,7 @@ package com.bank.controllers;
 
 
 import com.bank.service.UserService;
-import com.bank.utils.mappers.UserMapper;
+import com.bank.utils.mappers.impl.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

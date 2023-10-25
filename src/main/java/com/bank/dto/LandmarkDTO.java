@@ -11,6 +11,6 @@ public class LandmarkDTO {
     private Long id;
     private String title;
     private String description;
-    //private AddressDTO address; TODO
+    private AddressDTO address;
     private Double rating;
 }

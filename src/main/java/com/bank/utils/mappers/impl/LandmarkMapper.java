@@ -13,14 +13,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LandmarkMapper implements Mappable<Landmark, LandmarkDTO> {
     private final ModelMapper modelMapper;
+    private final AddressMapper addressMapper;
+
     @Override
     public Landmark fromDTO(LandmarkDTO dto) {
-        return modelMapper.map(dto, Landmark.class);
+        Landmark landmark = modelMapper.map(dto, Landmark.class);
+        landmark.setAddress(addressMapper.fromDTO(dto.getAddress()));
+        return landmark;
     }
 
     @Override
     public LandmarkDTO toDTO(Landmark entity) {
-        return modelMapper.map(entity, LandmarkDTO.class);
+        LandmarkDTO landmarkDTO = modelMapper.map(entity, LandmarkDTO.class);
+        landmarkDTO.setAddress(addressMapper.toDTO(entity.getAddress()));
+        return landmarkDTO;
     }
 
     @Override
