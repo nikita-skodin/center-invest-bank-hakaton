@@ -1,16 +1,15 @@
 package com.bank.models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
 @Table(name = "review_landmark")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReviewForLandmark{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +25,6 @@ public class ReviewForLandmark{
     private int stars;
 
     @ManyToOne
-    @Column(name = "event")
+    @JoinColumn(name = "landmark_id", referencedColumnName = "id")
     private Landmark landmark;
 }

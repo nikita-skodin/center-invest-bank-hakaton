@@ -43,7 +43,12 @@ public class User{
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "enabled")
     @NotNull
     private boolean enabled;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Rating rating;
 
 }

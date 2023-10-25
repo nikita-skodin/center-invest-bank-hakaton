@@ -12,8 +12,14 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Rating {
+
     @Id
-    @OneToOne(mappedBy = "rating")
+    @Column(name = "user_id")
+    private Long id;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Column(name = "status")

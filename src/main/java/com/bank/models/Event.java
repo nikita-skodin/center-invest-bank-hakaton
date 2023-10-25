@@ -1,12 +1,8 @@
 package com.bank.models;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
 import java.util.List;
@@ -24,25 +20,36 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "description")
     private String description;
 
-    private List<Image> images;
+    @Column(name = "image")
+    @CollectionTable(name = "posts_images")
+    @ElementCollection
+    private List<String> images;
 
+    @Column(name = "date_of_publishment")
     private Instant dateOfPublish;
 
+    @Column(name = "date_of_event")
     private Instant dateOfEvent;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
     private Address address;
 
+    @Column(name = "total_stars")
     private Integer totalStars;
 
-    private  Integer stars;
+    @Column(name = "review_counter")
+    private Integer reviewCounter;
 
+    @Column(name = "rating")
+    private double rating;
+
+    @OneToMany(mappedBy = "event")
     private List<ReviewForEvent> review;
-
-
-
-
 }

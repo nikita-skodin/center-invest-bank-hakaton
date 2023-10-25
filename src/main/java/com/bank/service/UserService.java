@@ -33,6 +33,10 @@ public class UserService {
         return null;
     }
 
+    public List<User> getAll(){
+        return userRepository.findAll();
+    }
+
     @Transactional
     public User save(User user){
         if (userRepository.findByUsername(user.getUsername()).isPresent())
