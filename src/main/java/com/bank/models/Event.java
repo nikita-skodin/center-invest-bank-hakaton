@@ -27,7 +27,7 @@ public class Event {
     private String description;
 
     @Column(name = "image")
-    @CollectionTable(name = "posts_images")
+    @CollectionTable(name = "events_images")
     @ElementCollection
     private List<String> images;
 
