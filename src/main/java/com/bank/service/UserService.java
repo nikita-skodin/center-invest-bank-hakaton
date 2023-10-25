@@ -1,7 +1,7 @@
 package com.bank.service;
 
 import com.bank.exceptions.ResourceNotFoundException;
-import com.bank.models.Role;
+import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import com.bank.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;

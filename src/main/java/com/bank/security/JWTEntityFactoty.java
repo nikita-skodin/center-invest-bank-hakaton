@@ -1,7 +1,7 @@
 package com.bank.security;
 
 
-import com.bank.models.Role;
+import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
