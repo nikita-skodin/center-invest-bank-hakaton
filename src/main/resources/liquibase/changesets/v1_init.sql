@@ -39,7 +39,7 @@ create table if not exists landmarks
     title       varchar                        not null,
     description varchar                        not null,
     address_id  bigint references address (id) not null,
-    total_stars decimal not null,
+    total_stars decimal not null default 0,
     review_counter int not null,
     rating decimal generated always as ( total_stars::numeric/review_counter::numeric ) stored
 );
@@ -75,7 +75,8 @@ create table if not exists reviews_landmark
     title       varchar(50)                      not null,
     message     varchar(400),
     stars       int default 0,
-    landmark_id bigint references landmarks (id) not null
+    landmark_id bigint references landmarks (id) not null,
+    likes       bigint default 0
 );
 
 create table if not exists events_images(

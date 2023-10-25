@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "review_landmark")
+@Table(name = "reviews_landmark")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,4 +27,7 @@ public class ReviewForLandmark{
     @ManyToOne
     @JoinColumn(name = "landmark_id", referencedColumnName = "id")
     private Landmark landmark;
+
+    @Column(name = "likes")
+    private int likes;
 }
