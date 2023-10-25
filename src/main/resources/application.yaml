@@ -1,15 +1,17 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   datasource:
-    username: postgres
-    password: root
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/demo_hackatone
+    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
   liquibase:
     changeLog: classpath:liquibase/db.changelog.yaml
     defaultSchema: public
     enabled: true
 security:
   jwt:
-    secret: Zmpkc25mbXNkamZzbmRqd3JlZWUzMjRtZG1mZG1rbGZtc2YyM3JmZHM=
+    secret: ${JWT_SECRET}
     access: 2592000000
     refresh: 2592000000
