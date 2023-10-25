@@ -1,6 +1,6 @@
 package com.bank.security;
 
-import com.bank.models.Role;
+import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import com.bank.props.JWTProperties;
 import com.bank.service.UserService;

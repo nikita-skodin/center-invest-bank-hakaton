@@ -14,3 +14,9 @@ create table if not exists users_roles(
     primary key (user_id, role),
     constraint fk_users_roles_users foreign key (user_id) references users(id) on delete cascade on update no action
 );
+
+create table if not exists users_rating(
+    user_id bigint references users(id) not null primary key,
+    status varchar(30) not null,
+    points bigint default 0
+)
