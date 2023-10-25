@@ -12,9 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/comments/landmarks")
+@RequestMapping("/api/v1/reviews/landmarks")
 @RequiredArgsConstructor
-public class ReviewController extends MainController {
+public class ReviewLandmarkController extends MainController {
 
     private final ReviewLandmarkService reviewLandmarkService;
     private final ReviewLandmarkMapper reviewLandmarkMapper;
@@ -27,10 +27,11 @@ public class ReviewController extends MainController {
 
     @GetMapping("/{review_id}")
     public ResponseEntity<Object> getById(@PathVariable("review_id") Long id){
-        return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmarkService.getById(id)), HttpStatus.OK);
+        ReviewLandmark reviewLandmark = reviewLandmarkService.getById(id);
+        return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{review_id")
+    @DeleteMapping("/{review_id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteById(@PathVariable("review_id") Long id){
         reviewLandmarkService.deleteById(id);
@@ -43,16 +44,18 @@ public class ReviewController extends MainController {
         checkBindingResult(bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
         reviewLandmark = reviewLandmarkService.save(reviewLandmark);
+        System.out.println(reviewLandmark.getId());
+        System.out.println(reviewLandmark.getTitle());
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
 
-    @PatchMapping
-    public ResponseEntity<Object> updateReview(@PathVariable("user_id") Long id,
+    @PatchMapping("/{review_id}")
+    public ResponseEntity<Object> updateReview(@PathVariable("review_id") Long reviewId,
                                                @RequestBody ReviewLandmarkDTO reviewLandmarkDTO,
                                                BindingResult bindingResult){
         reviewLandmarkDTOValidator.validate(reviewLandmarkDTO, bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
-        reviewLandmark = reviewLandmarkService.update(id, reviewLandmark);
+        reviewLandmark = reviewLandmarkService.update(reviewId, reviewLandmark);
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
 }

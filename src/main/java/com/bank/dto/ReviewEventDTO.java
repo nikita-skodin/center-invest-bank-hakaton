@@ -1,6 +1,6 @@
 package com.bank.dto;
 
-import com.bank.models.Landmark;
+import com.bank.models.Event;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,11 +9,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReviewLandmarkDTO {
+public class ReviewEventDTO {
     private Long id;
     private String title;
     private String message;
-    private Long landmark_id;
     private int stars;
-    private int likes;
+    private Long event_id;
 }

@@ -36,8 +36,6 @@ public class LandmarkController extends MainController{
         landmarkDTOValidator.validate(landmarkDTO, bindingResult);
         checkBindingResult(bindingResult);
         Landmark landmark = landmarkMapper.fromDTO(landmarkDTO);
-        System.out.println(landmark.getTitle());
-        System.out.println(landmark.getAddress().getCountry());
         //landmarkService.save() TODO
         return null;
     }

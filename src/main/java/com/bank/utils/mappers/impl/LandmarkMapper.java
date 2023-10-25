@@ -14,6 +14,7 @@ import java.util.List;
 public class LandmarkMapper implements Mappable<Landmark, LandmarkDTO> {
     private final ModelMapper modelMapper;
     private final AddressMapper addressMapper;
+    private final ReviewLandmarkMapper reviewLandmarkMapper;
 
     @Override
     public Landmark fromDTO(LandmarkDTO dto) {
@@ -26,6 +27,7 @@ public class LandmarkMapper implements Mappable<Landmark, LandmarkDTO> {
     public LandmarkDTO toDTO(Landmark entity) {
         LandmarkDTO landmarkDTO = modelMapper.map(entity, LandmarkDTO.class);
         landmarkDTO.setAddress(addressMapper.toDTO(entity.getAddress()));
+        landmarkDTO.setReviews(entity.getReviews().stream().map(reviewLandmarkMapper::toDTO).toList());
         return landmarkDTO;
     }
 
