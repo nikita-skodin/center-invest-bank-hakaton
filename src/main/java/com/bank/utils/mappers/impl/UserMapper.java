@@ -1,7 +1,8 @@
-package com.bank.utils.mappers;
+package com.bank.utils.mappers.impl;
 
 import com.bank.dto.UserDTO;
 import com.bank.models.User;
+import com.bank.utils.mappers.Mappable;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

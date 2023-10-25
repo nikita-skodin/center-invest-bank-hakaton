@@ -6,7 +6,7 @@ import com.bank.security.JWTRequest;
 import com.bank.security.JWTResponse;
 import com.bank.service.AuthService;
 import com.bank.service.UserService;
-import com.bank.utils.mappers.UserMapper;
+import com.bank.utils.mappers.impl.UserMapper;
 import com.bank.validators.UserValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
