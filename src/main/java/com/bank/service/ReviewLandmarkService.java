@@ -15,7 +15,6 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class ReviewLandmarkService {
     private final ReviewLandmarkRepository reviewLandmarkRepository;
-    private final LandmarkRepository landmarkRepository;
 
     public ReviewLandmark getById(Long id){
         return reviewLandmarkRepository.findById(id)
@@ -32,7 +31,13 @@ public class ReviewLandmarkService {
     }
 
     public ReviewLandmark save(ReviewLandmark reviewLandmark){
+        reviewLandmarkRepository.save(reviewLandmark);
+        return reviewLandmark;
+    }
 
+    public ReviewLandmark update(Long id, ReviewLandmark reviewLandmark){
+        reviewLandmark.setId(id);
+        return reviewLandmarkRepository.save(reviewLandmark);
     }
 
 
