@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -38,7 +39,8 @@ public class User{
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles")
     @Enumerated(value = EnumType.STRING)
-    private Set<Role> roles;
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "phone_number")
     private String phoneNumber;
