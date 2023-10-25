@@ -37,7 +37,6 @@ create table if not exists landmarks(
     address_id bigint references address(id) not null,
     total_stars decimal not null,
     review_counter decimal not null,
-   -- rating decimal generated always as (total_stars+review_counter) stored
     rating NUMERIC GENERATED ALWAYS AS (total_stars::numeric / review_counter::numeric) STORED
 
     );
