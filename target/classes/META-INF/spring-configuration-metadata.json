@@ -10,12 +10,14 @@
     {
       "name": "security.jwt.access",
       "type": "java.lang.Long",
-      "sourceType": "com.bank.props.JWTProperties"
+      "sourceType": "com.bank.props.JWTProperties",
+      "defaultValue": 0
     },
     {
       "name": "security.jwt.refresh",
       "type": "java.lang.Long",
-      "sourceType": "com.bank.props.JWTProperties"
+      "sourceType": "com.bank.props.JWTProperties",
+      "defaultValue": 0
     },
     {
       "name": "security.jwt.secret",
