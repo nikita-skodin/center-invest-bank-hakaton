@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthController extends MainController{
     private final AuthService authService;
     private final UserService userService;
     private final UserValidator userValidator;
@@ -29,7 +29,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody UserDTO userDTO){
-        //userValidator.validate(userDTO);
+       // userValidator.validate(userDTO); TODO
         User user = userMapper.fromDTO(userDTO);
         return new ResponseEntity<>(userMapper.toDTO(userService.save(user)), HttpStatus.CREATED);
     }

@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "landmark")
+@Table(name = "landmarks")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,7 +39,8 @@ public class Landmark {
     @Column(name = "rating")
     private double rating;
 
-
+    @OneToMany(mappedBy = "landmark")
+    private List<ReviewForLandmark> reviews;
 
 
 }
