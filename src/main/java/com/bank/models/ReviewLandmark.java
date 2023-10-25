@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewForLandmark{
+public class ReviewLandmark {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

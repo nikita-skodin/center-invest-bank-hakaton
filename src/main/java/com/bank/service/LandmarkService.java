@@ -3,7 +3,7 @@ package com.bank.service;
 
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Landmark;
-import com.bank.repositories.LandMarkRepository;
+import com.bank.repositories.LandmarkRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class LandmarkService {
-    private final LandMarkRepository landMarkRepository;
+    private final LandmarkRepository landMarkRepository;
 
     public Landmark getById(Long id){
         return landMarkRepository.findById(id).orElseThrow(()
