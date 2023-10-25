@@ -41,7 +41,7 @@ create table if not exists landmarks
     address_id  bigint references address (id) not null,
     total_stars decimal not null,
     review_counter int not null,
-    rating decimal
+    rating decimal generated always as ( total_stars::numeric/review_counter::numeric ) stored
 );
 
 create table if not exists events
