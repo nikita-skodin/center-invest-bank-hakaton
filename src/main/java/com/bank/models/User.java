@@ -1,5 +1,5 @@
 package com.bank.models;
 
 public class User {
-    private String user;
+    private String user;d
 }
