@@ -29,9 +29,11 @@ create table if not exists landmark(
     title varchar not null,
     description varchar not null,
     address_id bigint references address(id),
+    total_stars decimal not null ,
+    review_counter int not null,
+    rating decimal default total_stars/review_counter
 
-
-)
+);
 
 create table if not exists users_rating(
     user_id bigint references users(id) not null primary key,
