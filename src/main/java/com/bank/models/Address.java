@@ -33,13 +33,6 @@ public class Address {
     @Column(name="street")
     private String street;
 
-    @NotNull
-    @Column(name="contact_number")
-    // TODO
-    private String contactNumber;
 
-    @NotNull
-    @Column(name="working_hours")
-    private String workingHours;
 
 }

@@ -1,6 +1,7 @@
 package com.bank.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,15 @@ public class Landmark {
 
     @OneToMany(mappedBy = "landmark")
     private List<ReviewForLandmark> reviews;
+
+    @NotNull
+    @Column(name="contact_number")
+    // TODO
+    private String contactNumber;
+
+    @NotNull
+    @Column(name="working_hours")
+    private String workingHours;
 
 
 }
