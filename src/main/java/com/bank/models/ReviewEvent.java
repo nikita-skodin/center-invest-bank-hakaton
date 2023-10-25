@@ -22,7 +22,7 @@ public class ReviewEvent {
     private String message;
 
     @Column(name = "stars")
-    private int stars;
+    private Long stars;
 
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id")

@@ -29,5 +29,5 @@ public class ReviewLandmark {
     private Landmark landmark;
 
     @Column(name = "likes")
-    private int likes;
+    private Long likes;
 }

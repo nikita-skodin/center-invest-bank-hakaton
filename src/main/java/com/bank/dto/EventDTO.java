@@ -2,6 +2,7 @@ package com.bank.dto;
 
 import com.bank.models.Address;
 import com.bank.models.ReviewEvent;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.Instant;
@@ -13,29 +14,32 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Schema(description = "Event DTO")
 public class EventDTO {
-
+    @Schema(name = "Event id", example = "1")
     private Long id;
-
+    @Schema(name = "Event title", example = "This is the name of the event")
     private String title;
-
+    @Schema(name = "Event description", example = "This is the description of the event")
     private String description;
 
+    @Schema(name = "Event images", example = "This is the images of the event")
     @Builder.Default
     private List<String> images = new ArrayList<>();
 
+    @Schema(name = "Date of event publish", example = "")//TODO
     private Instant dateOfPublish;
 
+    @Schema(name = "Date of event", example = "")//TODO
     private Instant dateOfEvent;
 
+    @Schema(name = "Landmark address")
     private Address address;
 
-    private Integer totalStars;
+    @Schema(name = "Event rating", example = "3.23")
+    private Double rating;
 
-    private Integer reviewCounter;
-
-    private double rating;
-
+    @Schema(name = "Event reviews", example = "This is the name of the landmark")
     @Builder.Default
     private List<ReviewEvent> review = new ArrayList<>();
 }
