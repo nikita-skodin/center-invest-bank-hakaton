@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: postgres
+    password: root
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/demo_hackatone
+  liquibase:
+    changeLog: classpath:liquibase/db.changelog.yaml
+    defaultSchema: public
+    enabled: true
+security:
+  jwt:
+    secret: Zmpkc25mbXNkamZzbmRqd3JlZWUzMjRtZG1mZG1rbGZtc2YyM3JmZHM=
+    access: 2592000000
+    refresh: 2592000000
