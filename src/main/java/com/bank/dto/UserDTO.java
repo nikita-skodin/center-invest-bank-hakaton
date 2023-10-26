@@ -25,12 +25,12 @@ public class UserDTO {
     @Schema(name = "User email", example = "mrk@gmail.com")
     private String email;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private String password;
 
     @Schema(name = "Password confirmation", example = "12345")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordConfirmation;
 
-    private Rating rating;
+    private RatingDTO rating;
 }
