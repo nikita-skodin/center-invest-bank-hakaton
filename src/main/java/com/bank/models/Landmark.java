@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,9 @@ public class Landmark {
     @Column(name="address")
     private String address;
 
+    @Column(name = "coordinates")
+    private String coordinates;
+
     @Column(name = "total_stars")
     private double totalStars;
 
@@ -38,7 +42,8 @@ public class Landmark {
     private int reviewCounter;
 
     @Column(name = "rating")
-    private double rating;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Double rating;
 
     @OneToMany(mappedBy = "landmark")
     @Builder.Default

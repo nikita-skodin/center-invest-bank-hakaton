@@ -11,5 +11,9 @@ import java.util.Optional;
 public interface LandmarkRepository extends JpaRepository<Landmark,Long> {
     List<Landmark> findAllByTitle(String title);
     Optional<Landmark> findByTitle(String title);
+    Optional<Landmark> findByAddress(String title);
     List<Landmark> findAllByTitleStartingWith(String trim);
+
+
+
 }

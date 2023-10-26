@@ -33,6 +33,7 @@ create table if not exists landmarks
     contact_number varchar not null,
     working_hours  varchar not null,
     address        varchar not null,
+    coordinates    varchar not null,
     total_stars    decimal not null default 0,
     review_counter int     not null,
     rating         decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored
@@ -45,11 +46,12 @@ create table if not exists events
     description         varchar   not null,
     date_of_publishment timestamp not null,
     date_of_event       timestamp not null,
-    contact_number      varchar   not null,
-    address             varchar   not null,
+    contact_number varchar not null,
+    working_hours  varchar not null,
+    address_id          integer not null,
     total_stars         integer,
     review_counter      integer,
-    rating              decimal,
+    rating              decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored,
     start_time          timestamp not null,
     end_time            timestamp not null
 );

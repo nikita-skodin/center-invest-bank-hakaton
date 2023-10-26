@@ -22,7 +22,7 @@ public class Address {
     @Id
     private Long id;
 
-    @Column(name = "address")
+    @Column(name="address")
     private String address;
 
     @Column(name = "coordinates")
