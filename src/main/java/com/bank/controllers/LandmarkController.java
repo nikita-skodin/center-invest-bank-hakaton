@@ -10,6 +10,7 @@ import com.bank.utils.mappers.impl.LandmarkMapper;
 import com.bank.validators.LandmarkDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -59,36 +60,43 @@ public class LandmarkController extends MainController {
 
     @Operation(summary = "Create landmark")
     @PostMapping("/create")
-    public ResponseEntity<Object> createNewLandmark(@RequestBody LandmarkDTO landmarkDTO, BindingResult bindingResult) {
+    public ResponseEntity<Object> createNewLandmark(
+            @RequestBody @Valid LandmarkDTO landmarkDTO, BindingResult bindingResult) {
         landmarkDTOValidator.validate(landmarkDTO, bindingResult);
         checkBindingResult(bindingResult);
+
         landmarkService.save(landmarkMapper.fromDTO(landmarkDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/{address}")
     public Landmark getByAddress(@PathVariable("address") String address) {
-
         return landmarkService.findByAddress(address);
     }
 
     @PostMapping("/{id}/update")
-    public ResponseEntity<Object> update(@PathVariable("id") int id,
-                                         @RequestBody LandmarkDTO landmarkDTO) {
+    public ResponseEntity<Object> update(
+            @PathVariable("id") int id,
+            @RequestBody @Valid LandmarkDTO landmarkDTO,
+            BindingResult bindingResult) {
+
+        landmarkDTOValidator.validate(landmarkDTO, bindingResult);
+        checkBindingResult(bindingResult);
+
         landmarkService.update(id, landmarkMapper.fromDTO(landmarkDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @Operation(summary = "Get all images for landmark by landmark id")
     @GetMapping("/{landmark_id}/images")
-    public ResponseEntity<Object> getAllImagesForPost(@PathVariable("landmark_id") Long landmarkId){
+    public ResponseEntity<Object> getAllImagesForPost(@PathVariable("landmark_id") Long landmarkId) {
         return new ResponseEntity<>(landmarkService.getById(landmarkId).getImages(), HttpStatus.OK);
     }
 
     @Operation(summary = "Add image for landmark by landmark id")
-    @PostMapping( "/{landmark_id}/images/add")
+    @PostMapping("/{landmark_id}/images/add")
     public ResponseEntity<Object> uploadImageForPost(@PathVariable("landmark_id") Long postId,
-                                                     @ModelAttribute ImageDTO imageDTO){
+                                                     @ModelAttribute ImageDTO imageDTO) {
         Image image = imageMapper.fromDTO(imageDTO);
         landmarkService.uploadImage(postId, image);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -97,9 +105,9 @@ public class LandmarkController extends MainController {
     @Operation(summary = "Delete image for landmark by landmark id")
     @DeleteMapping("/{landmark_id}/images/delete")
     @ResponseStatus(HttpStatus.OK)
-  //  @PreAuthorize("@customSecurityExpression.isPostOwner(#postId)") TODO
+    //  @PreAuthorize("@customSecurityExpression.isPostOwner(#postId)") TODO
     public void deleteImage(@PathVariable("landmark_id") Long postId,
-                            @RequestBody String jsonRequest){
+                            @RequestBody String jsonRequest) {
         JSONObject jsonObject = new JSONObject(jsonRequest);
         String name = jsonObject.getString("name");
         landmarkService.deleteImage(postId, name);

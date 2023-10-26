@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.Instant;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
@@ -27,11 +29,18 @@ public class EventDTOValidator implements Validator {
 
         Optional<Event> eventByTitle = eventService.getEventByTitle(dto.getTitle());
 
-        if (eventByTitle.isPresent() && eventByTitle.get().getId() != dto.getId()){
+        if (eventByTitle.isPresent() && !Objects.equals(eventByTitle.get().getId(), dto.getId())){
             errors.rejectValue("title", "400",
                     String.format("Event with name %s is already exist",
                             dto.getTitle()));
         }
-        // TODO: 026 добавить валидауию для времени и тд
+
+        Instant startTime = dto.getStartTime();
+        Instant endTime = dto.getEndTime();
+
+        if (startTime.isAfter(endTime) || startTime.equals(endTime)){
+            errors.rejectValue("startTime", "400",
+                    "Time is incorrect");
+        }
     }
 }

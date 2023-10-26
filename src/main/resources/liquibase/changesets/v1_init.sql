@@ -47,7 +47,6 @@ create table if not exists events
     date_of_publishment timestamp not null,
     date_of_event       timestamp not null,
     contact_number      varchar   not null,
-    working_hours       varchar   not null,
     address             varchar   not null,
     coordinates         varchar   not null,
     total_stars         decimal,
