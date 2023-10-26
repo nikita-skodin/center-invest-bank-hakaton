@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,9 +50,13 @@ public class EventController extends MainController {
             events = eventService.getAll();
         }
 
+        if (limit.isPresent() && limit.get()>events.size()){
+            limit = Optional.of(events.size());
+        }
+
         return ResponseEntity
                 .ok()
-                .body(eventMapper.toDTOs(events).subList(0, limit.orElse(events.size())));  // может не хватать одного элемента
+                .body(eventMapper.toDTOs(events).subList(0, limit.orElse(events.size())));
     }
 
     @Operation(summary = "Get event by id")
