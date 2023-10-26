@@ -21,9 +21,9 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-    public AddressDTO getAddressBy(String address){
+    public Address getAddressBy(String address){
         return addressRepository.findByAddress(address).orElseThrow(()
-                -> new BagRequestException("Address with this id not found!"));
+                -> new BagRequestException("Landmark with this title already exists"));
     }
 
     public void save (Address address){

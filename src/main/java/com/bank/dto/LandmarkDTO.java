@@ -24,10 +24,15 @@ public class LandmarkDTO {
     @Schema(name = "Landmark address")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<String> images = new ArrayList<>();
-    private AddressDTO address;
+    private String address;
+    private String coordinates;
     @Schema(name = "Landmark rating", example = "3.23")
     private Double rating;
     @Schema(name = "Landmark reviews", example = "This is the name of the landmark")
     private List<ReviewLandmarkDTO> reviews;
+
+    private String contactNumber;
+
+    private String workingHours;
 
 }

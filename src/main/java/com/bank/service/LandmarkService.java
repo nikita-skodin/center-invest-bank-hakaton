@@ -1,24 +1,18 @@
 package com.bank.service;
 
 
-import com.bank.dto.LandmarkDTO;
-import com.bank.exceptions.BagRequestException;
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Image;
 import com.bank.models.Landmark;
+import com.bank.repositories.AddressRepository;
 import com.bank.repositories.LandmarkRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.util.ClassUtils.isPresent;
 
 @Service
 @Transactional(readOnly = true)
@@ -28,6 +22,8 @@ public class LandmarkService {
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper;
     private final ImageService imageService;
+    private final ObjectMapper objectMapper;
+    private final AddressRepository addressRepository;
 
     public Landmark getById(Long id){
         return landMarkRepository.findById(id).orElseThrow(()
@@ -43,30 +39,14 @@ public class LandmarkService {
         return landMarkRepository.findAll();
     }
 
-//    public List<Landmark> getAllByAddress(String address){
-//        return landMarkRepository.findAllByAddress_Address(address);
-//    }
+
     public List<Landmark> getAllByTitle(String address){
         return landMarkRepository.findAllByTitle(address);
     }
 
     @Transactional
-    public void save(Landmark landmark){
-        String address ="http://localhost:8080/spring-rest/foos"+ landmark.getAddress();
-        RestTemplate restTemplate = new RestTemplate();
-
-        String json = restTemplate.getForObject(address, String.class);
-
-        try {
-            String coordinates = mapper.readTree(json).get("GeoObjectCollection").asText();
-            System.out.println(coordinates);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        landMarkRepository.findByTitle(landmark.getTitle()).orElseThrow(()
-                -> new BagRequestException("Landmark with this title already exists"));
-
+    public <S extends Landmark> S save(S landmark){
+        return landMarkRepository.save(landmark);
     }
 
     @Transactional
@@ -97,5 +77,10 @@ public class LandmarkService {
             throw new ResourceNotFoundException("Image with this name not found for this image");
         imageService.removeImage(imageName);
         landMarkRepository.save(landmark);
+    }
+
+    public Landmark findByAddress(String address) {
+        return landMarkRepository.findByAddress(address).orElseThrow(()
+            ->new ResourceNotFoundException("Landmark with this address not found!"));
     }
 }
