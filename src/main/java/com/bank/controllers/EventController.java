@@ -31,6 +31,7 @@ public class EventController extends MainController {
     private final static String GET_EVENT_BY_ID = "/{event_id}";
     private final static String DELETE_EVENT_BY_ID = "/{event_id}";
     private final static String UPDATE_EVENT_BY_ID = "/{event_id}";
+
     @GetMapping(GET_ALL_EVENTS)
     ResponseEntity<List<EventDTO>> getAllEvents(){
         List<Event> events = eventService.getAll();
@@ -87,5 +88,7 @@ public class EventController extends MainController {
         eventService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
 }

@@ -2,20 +2,16 @@ package com.bank.validators;
 
 import com.bank.dto.UserDTO;
 import com.bank.exceptions.InvalidOperationException;
-import com.bank.models.User;
 import com.bank.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
 @Component
 @RequiredArgsConstructor
-public class UserValidator implements Validator {
+public class UserDTOValidator implements Validator {
     private final UserRepository userRepository;
-
-
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.equals(UserDTO.class);
