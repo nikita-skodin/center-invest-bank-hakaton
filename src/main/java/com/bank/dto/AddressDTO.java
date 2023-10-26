@@ -14,4 +14,5 @@ public class AddressDTO {
     private Long id;
     private String address;
     private String coordinates;
+    //
 }
