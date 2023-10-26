@@ -16,17 +16,11 @@ public class AddressDTO {
 
     @Schema(name = "Address id", example = "1")
     private Long id;
+    
+    @Schema(name = "Address id", example = "1") // TODO: 026  
     private String address;
+    
+    @Schema(name = "Address id", example = "1") // TODO: 026  
     private String coordinates;
     //
-
-    @Schema(name = "Country name", example = "Belarus")
-    private String country;
-
-    @Schema(name = "City name", example = "Minsk")
-    private String city;
-
-    @Schema(name = " name", example = "1")
-    private String street;
-
 }
