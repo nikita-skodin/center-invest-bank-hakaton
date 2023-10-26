@@ -4,6 +4,7 @@ import com.bank.utils.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import liquibase.license.LicenseService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +37,16 @@ public class User{
     @Column(name = "email")
     private String email;
 
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "code_for_confirmation")
+    private String codeForConfirmation;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Rating rating;
+
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "users_roles")
@@ -43,22 +54,13 @@ public class User{
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
     @Column(name = "enabled")
     @NotNull
     private boolean enabled;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Rating rating;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewEvent> reviewEvents;
 
-    @ManyToMany
-    List<Event> events;
-
-    @ManyToMany
-    List<Landmark> landmarks;
-
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReviewLandmark> reviewLandmarks;
 }

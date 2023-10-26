@@ -2,6 +2,7 @@ package com.bank.dto;
 
 import com.bank.models.Address;
 import com.bank.models.Event;
+import com.bank.models.ReviewEvent;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import io.swagger.v3.oas.annotations.media.Schema;

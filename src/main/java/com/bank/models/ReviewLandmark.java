@@ -29,5 +29,10 @@ public class ReviewLandmark {
     private Landmark landmark;
 
     @Column(name = "likes")
+    @Builder.Default
     private Long likes = 0L;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

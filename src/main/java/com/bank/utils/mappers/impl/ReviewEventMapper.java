@@ -18,7 +18,7 @@ public class ReviewEventMapper implements Mappable<ReviewEvent, ReviewEventDTO> 
     @Override
     public ReviewEvent fromDTO(ReviewEventDTO dto) {
         ReviewEvent reviewEvent = modelMapper.map(dto, ReviewEvent.class);
-        reviewEvent.setEvent(eventService.getById(dto.getEvent_id()));
+        //reviewEvent.setEvent(eventService.getById(dto.getEvent_id()));
         return reviewEvent;
     }
 
