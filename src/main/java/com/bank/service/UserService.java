@@ -1,9 +1,11 @@
 package com.bank.service;
 
 import com.bank.exceptions.ResourceNotFoundException;
+import com.bank.models.Rating;
 import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import com.bank.repositories.UserRepository;
+import com.bank.utils.enums.UserRank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,11 +28,13 @@ public class UserService {
     }
 
     public User getByUsername(String username){
-        Optional<User> user = userRepository.findByUsername(username);
-        if (user.isPresent())
-            return user.get();
-        System.out.println("User with this username not found!");
-        return null;
+        return userRepository.findByUsername(username)
+                .orElseThrow(()->new ResourceNotFoundException("User with this username not found!"));
+    }
+
+    public User getByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(()-> new ResourceNotFoundException("User with this email not found!"));
     }
 
     public List<User> getAll(){
@@ -46,6 +50,12 @@ public class UserService {
         user.setRoles(new HashSet<>(List.of(Role.ROLE_USER)));
         user.setEnabled(true);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRating(Rating.builder()
+                        .points(0)
+                        .rank(UserRank.NEW_MEMBER)
+                        .user(user)
+                        .id(user.getId())
+                .build());
         return userRepository.save(user);
     }
 

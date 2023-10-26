@@ -3,7 +3,6 @@ package com.bank.config;
 import com.bank.security.JWTTokenFilter;
 import com.bank.security.JWTTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -67,9 +66,6 @@ public class SecurityConfig {
     }
 
 
-    @Bean
-    public ModelMapper getModelMapper(){
-        return new ModelMapper();
-    }
+
 
 }

@@ -11,7 +11,7 @@ create table if not exists users
 create table if not exists users_rating
 (
     user_id bigint references users (id) primary key,
-    status  varchar(255) not null,
+    rank  varchar(255) not null,
     points  bigint default 0
 );
 
@@ -61,7 +61,9 @@ create table if not exists events
             on delete cascade,
     total_stars         integer,
     review_counter      integer,
-    rating              numeric
+    rating              decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored,
+    start_time          timestamp not null,
+    end_time          timestamp not null
 );
 
 create table if not exists reviews_event
@@ -70,7 +72,8 @@ create table if not exists reviews_event
     title    varchar(50)                   not null,
     message  varchar(400),
     stars    int default 0,
-    event_id bigint references events (id) not null
+    event_id bigint references events (id) not null,
+    likes       bigint default 0
 );
 
 create table if not exists reviews_landmark
