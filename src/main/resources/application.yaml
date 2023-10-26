@@ -5,17 +5,11 @@ spring:
     username: ${POSTGRES_USERNAME}
     password: ${POSTGRES_PASSWORD}
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://${HOST}:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
+    url: jdbc:postgresql://db:5432/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
   liquibase:
     changeLog: classpath:liquibase/db.changelog.yaml
     defaultSchema: public
     enabled: true
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_ADDRESS}
-    password: ${MAIL_PASSWORD}
-    confirmLink: ${MAIL_CONFIRMATION_LINK}
 security:
   jwt:
     secret: ${JWT_SECRET}
