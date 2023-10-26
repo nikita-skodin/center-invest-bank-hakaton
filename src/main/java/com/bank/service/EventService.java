@@ -2,6 +2,8 @@ package com.bank.service;
 
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Event;
+import com.bank.models.Image;
+import com.bank.models.Landmark;
 import com.bank.repositories.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class EventService {
+    private final ImageService imageService;
 
     private final EventRepository eventRepository;
 
@@ -53,5 +56,25 @@ public class EventService {
 
     public List<Event> findAllByTitleStartingWith(String trim) {
         return eventRepository.findAllByTitleStartingWith(trim);
+    }
+
+    @Transactional
+    public Event uploadImage(Long id, Image image) {
+        Event event = getById(id);
+        String imageName = imageService.upload(image);
+        List<String> images = event.getImages();
+        images.add(imageName);
+        event.setImages(images);
+        return eventRepository.save(event);
+    }
+
+    @Transactional
+    public void deleteImage(Long id, String imageName){
+        Event event = getById(id);
+        List<String> images = event.getImages();
+        if (!images.remove(imageName))
+            throw new ResourceNotFoundException("Image with this name not found for this image");
+        imageService.removeImage(imageName);
+        eventRepository.save(event);
     }
 }

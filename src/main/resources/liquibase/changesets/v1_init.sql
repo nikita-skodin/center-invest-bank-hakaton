@@ -6,7 +6,8 @@ create table if not exists users
     email                 varchar not null unique,
     phone_number          varchar(25),
     code_for_confirmation varchar,
-    enabled               bool    not null default false
+    enabled               bool    not null default false,
+    confirmation_code varchar(4)
 );
 
 create table if not exists users_rating
@@ -35,7 +36,6 @@ create table if not exists landmarks
     total_stars    decimal not null default 0,
     review_counter int     not null,
     rating         decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored
-
 );
 
 create table if not exists events
@@ -85,5 +85,11 @@ create table if not exists reviews_landmark
 create table if not exists events_images
 (
     event_id bigint       not null references events (id) on delete cascade,
+    image    varchar(255) not null
+);
+
+create table if not exists landmarks_images
+(
+    landmark_id bigint       not null references landmarks (id) on delete cascade,
     image    varchar(255) not null
 );

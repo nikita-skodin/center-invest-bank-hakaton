@@ -28,9 +28,8 @@ public class Landmark {
     @Column(name="description")
     private String description;
 
-    @JoinColumn(name="address_id")
-    @OneToOne
-    private Address address;
+    @Column(name="address")
+    private String address;
 
     @Column(name = "total_stars")
     private double totalStars;
@@ -54,5 +53,10 @@ public class Landmark {
     @Column(name="working_hours")
     private String workingHours;
 
+    @Column(name = "image")
+    @CollectionTable(name = "landmarks_images")
+    @ElementCollection
+    @Builder.Default
+    private List<String> images = new ArrayList<>();
 
 }

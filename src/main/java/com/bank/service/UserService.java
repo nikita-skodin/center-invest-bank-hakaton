@@ -50,7 +50,8 @@ public class UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent())
             throw new IllegalStateException("User with this email already exists");
         user.setRoles(new HashSet<>(List.of(Role.ROLE_USER)));
-        user.setEnabled(true);
+        user.setEnabled(false);
+        user.setConfirmationCode(generateCofirmationCode());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRating(Rating.builder()
                         .points(0)
@@ -73,5 +74,19 @@ public class UserService {
     @Transactional
     public void deleteById(Long aLong) {
         userRepository.deleteById(aLong);
+    }
+
+    private String generateCofirmationCode(){
+        Integer code = (int)(1000+Math.random()*9000);
+        System.out.println("Confirmation code");
+        System.out.println(code);
+        return code.toString();
+    }
+
+    @Transactional
+    public void enalbe(String email){
+        User user = getByEmail(email);
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }

@@ -39,4 +39,9 @@ public class UserDTO {
     @Schema(name = "User rank", example = "New member")
     private String rank;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY,
+            value = "confirmation_code")
+    @Schema(name = "4-digit code for email confirmation", example = "5328")
+    private String confirmationCode;
+
 }

@@ -41,7 +41,7 @@ public class Event {
     @Column(name = "date_of_event")
     private Instant dateOfEvent;
 
-    @Column(name = "address")
+    @Column(name="address")
     private String address;
 
     @Column(name = "contact_number")

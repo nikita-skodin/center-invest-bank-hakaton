@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @Schema(description = "Image dto")
 public class ImageDTO {
-
     @Schema(name = "file", example = "MultipartFile")
     private MultipartFile file;
 }

@@ -1,9 +1,12 @@
 package com.bank.controllers;
 
 import com.bank.dto.EventDTO;
+import com.bank.dto.ImageDTO;
 import com.bank.models.Event;
+import com.bank.models.Image;
 import com.bank.service.EventService;
 import com.bank.utils.mappers.impl.EventMapper;
+import com.bank.utils.mappers.impl.ImageMapper;
 import com.bank.validators.EventDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +14,7 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -30,6 +34,7 @@ public class EventController extends MainController {
     private final EventService eventService;
     private final EventMapper eventMapper;
     private final EventDTOValidator eventDTOValidator;
+    private final ImageMapper imageMapper;
 
     private final static String GET_ALL_EVENTS = "";
     private final static String CREATE_EVENT = "";
@@ -114,5 +119,32 @@ public class EventController extends MainController {
     ResponseEntity<HttpStatus> deleteEventById(@PathVariable("event_id") Long id){
         eventService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Get all images for post by post id")
+    @GetMapping("/{landmark_id}/images")
+    public ResponseEntity<Object> getAllImagesForPost(@PathVariable("landmark_id") Long landmarkId){
+        return new ResponseEntity<>(eventService.getById(landmarkId).getImages(), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Add image for landmark by landmark id")
+    @PostMapping( "/{event_id}/images/add")
+    public ResponseEntity<Object> uploadImageForPost(@PathVariable("event_id") Long postId,
+                                                     @ModelAttribute ImageDTO imageDTO){
+        Image image = imageMapper.fromDTO(imageDTO);
+        eventService.uploadImage(postId, image);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete image for landmark by landmark id")
+    @DeleteMapping("/{event_id}/images/delete")
+    @ResponseStatus(HttpStatus.OK)
+    //  @PreAuthorize("@customSecurityExpression.isPostOwner(#postId)") TODO
+    public void deleteImage(@PathVariable("event_id") Long postId,
+                            @RequestBody String jsonRequest){
+        JSONObject jsonObject = new JSONObject(jsonRequest);
+        String name = jsonObject.getString("name");
+        eventService.deleteImage(postId, name);
     }
 }

@@ -15,9 +15,21 @@ spring:
     port: 587
     username: romatempforjet@gmail.com
     password: ydkl aobk ctcc jloj
-    confirmLink: http://localhost:8080/api/auth/confirm/
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 security:
   jwt:
     secret: ${JWT_SECRET}
     access: 2592000000
     refresh: 2592000000
+minio:
+  bucket: ${MINIO_BUCKET}
+  url: ${MINIO_URL}
+  accessKey: ${MINIO_ACCESS_KEY}
+  secretKey: ${MINIO_SECRET_KEY}
+springdoc:
+  override-with-generic-response: false

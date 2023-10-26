@@ -63,4 +63,7 @@ public class User{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReviewLandmark> reviewLandmarks;
+
+    @Column(name = "confirmation_code")
+    private String confirmationCode;
 }

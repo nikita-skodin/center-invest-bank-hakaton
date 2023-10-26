@@ -47,7 +47,7 @@ public class EmailService {
         StringWriter stringWriter = new StringWriter();
         Map<String, Object> model = new HashMap<>();
         model.put("username", user.getUsername());
-        model.put("confirmationLink", mailProperties.getConfirmLink()+user.getId());
+        model.put("code", user.getConfirmationCode());
         configuration.getTemplate("register.flth")
                 .process(model, stringWriter);
         return stringWriter.getBuffer().toString();

@@ -11,6 +11,8 @@ services:
       - .env
     ports:
       - '8080:8080'
+    networks:
+      - app-network
   db:
     image: postgres:15.1-alpine
     container_name: db
@@ -20,3 +22,9 @@ services:
       - POSTGRES_DB=${POSTGRES_DATABASE}
     ports:
       - '5432:5432'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

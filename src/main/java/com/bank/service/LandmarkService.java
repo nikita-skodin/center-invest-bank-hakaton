@@ -4,6 +4,7 @@ package com.bank.service;
 import com.bank.dto.LandmarkDTO;
 import com.bank.exceptions.BagRequestException;
 import com.bank.exceptions.ResourceNotFoundException;
+import com.bank.models.Image;
 import com.bank.models.Landmark;
 import com.bank.repositories.LandmarkRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,7 @@ public class LandmarkService {
     private final LandmarkRepository landMarkRepository;
     private final RestTemplate restTemplate;
     private final ObjectMapper mapper;
+    private final ImageService imageService;
 
     public Landmark getById(Long id){
         return landMarkRepository.findById(id).orElseThrow(()
@@ -75,5 +77,25 @@ public class LandmarkService {
 
     public List<Landmark> findAllByTitleStartingWith(String trim) {
         return landMarkRepository.findAllByTitleStartingWith(trim);
+    }
+
+    @Transactional
+    public Landmark uploadImage(Long id, Image image) {
+        Landmark landmark = getById(id);
+        String imageName = imageService.upload(image);
+        List<String> images = landmark.getImages();
+        images.add(imageName);
+        landmark.setImages(images);
+        return landMarkRepository.save(landmark);
+    }
+
+    @Transactional
+    public void deleteImage(Long id, String imageName){
+        Landmark landmark = getById(id);
+        List<String> images = landmark.getImages();
+        if (!images.remove(imageName))
+            throw new ResourceNotFoundException("Image with this name not found for this image");
+        imageService.removeImage(imageName);
+        landMarkRepository.save(landmark);
     }
 }
