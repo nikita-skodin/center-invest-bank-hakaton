@@ -19,14 +19,14 @@ public class LandmarkMapper implements Mappable<Landmark, LandmarkDTO> {
     @Override
     public Landmark fromDTO(LandmarkDTO dto) {
         Landmark landmark = modelMapper.map(dto, Landmark.class);
-        landmark.setAddress(addressMapper.fromDTO(dto.getAddress()));
+//        landmark.setAddress(addressMapper.fromDTO(dto.getAddress()));
         return landmark;
     }
 
     @Override
     public LandmarkDTO toDTO(Landmark entity) {
         LandmarkDTO landmarkDTO = modelMapper.map(entity, LandmarkDTO.class);
-        landmarkDTO.setAddress(addressMapper.toDTO(entity.getAddress()));
+//        landmarkDTO.setAddress(addressMapper.toDTO(entity.getAddress()));
         landmarkDTO.setReviews(entity.getReviews().stream().map(reviewLandmarkMapper::toDTO).toList());
         return landmarkDTO;
     }

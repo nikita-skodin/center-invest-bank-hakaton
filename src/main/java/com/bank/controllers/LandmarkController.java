@@ -69,7 +69,7 @@ public class LandmarkController extends MainController {
 
     @GetMapping("/{address}")
     public ResponseEntity<Object> getByAddress(@PathVariable("address") String address) {
-        return new ResponseEntity<>(landmarkMapper.toDTOs(landmarkService.getAllByAddress(address)), HttpStatus.OK);
+        return null;
 
     }
 
