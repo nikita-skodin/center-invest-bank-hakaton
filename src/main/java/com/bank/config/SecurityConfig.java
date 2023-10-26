@@ -39,7 +39,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        /*http
+        http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(HttpBasicConfigurer::disable)
@@ -61,7 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated())
                 .anonymous(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new JWTTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);*/
+                .addFilterBefore(new JWTTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
