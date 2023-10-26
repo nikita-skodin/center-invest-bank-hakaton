@@ -43,29 +43,29 @@ public class LandmarkService {
         return landMarkRepository.findAll();
     }
 
-    public List<Landmark> getAllByAddress(String address){
-        return null;
-    }
+//    public List<Landmark> getAllByAddress(String address){
+//        return landMarkRepository.findAllByAddress_Address(address);
+//    }
     public List<Landmark> getAllByTitle(String address){
         return landMarkRepository.findAllByTitle(address);
     }
 
     @Transactional
     public void save(Landmark landmark){
-//        String address ="http://localhost:8080/spring-rest/foos"+ landmark.getAddress().getAddress();
-//        RestTemplate restTemplate = new RestTemplate();
-//
-//        String json = restTemplate.getForObject(address, String.class);
-//
-//        try {
-//            String coordinates = mapper.readTree(json).get("GeoObjectCollection").asText();
-//            System.out.println(coordinates);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        landMarkRepository.findByTitle(landmark.getTitle()).orElseThrow(()
-//                -> new BagRequestException("Landmark with this title already exists"));
+        String address ="http://localhost:8080/spring-rest/foos"+ landmark.getAddress();
+        RestTemplate restTemplate = new RestTemplate();
+
+        String json = restTemplate.getForObject(address, String.class);
+
+        try {
+            String coordinates = mapper.readTree(json).get("GeoObjectCollection").asText();
+            System.out.println(coordinates);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
+        landMarkRepository.findByTitle(landmark.getTitle()).orElseThrow(()
+                -> new BagRequestException("Landmark with this title already exists"));
 
     }
 
