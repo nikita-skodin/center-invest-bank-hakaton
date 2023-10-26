@@ -1,16 +1,16 @@
 package com.bank.service;
 
-import com.bank.dto.AddressDTO;
-import com.bank.exceptions.NotFoundException;
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Address;
 import com.bank.repositories.AddressRepository;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AddressService {
     private final AddressRepository addressRepository;
 

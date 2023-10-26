@@ -1,8 +1,7 @@
 package com.bank.dto;
 
 import com.bank.models.Address;
-import com.bank.models.ReviewForEvent;
-import jakarta.persistence.*;
+import com.bank.models.ReviewEvent;
 import lombok.*;
 
 import java.time.Instant;
@@ -38,5 +37,5 @@ public class EventDTO {
     private double rating;
 
     @Builder.Default
-    private List<ReviewForEvent> review = new ArrayList<>();
+    private List<ReviewEvent> review = new ArrayList<>();
 }

@@ -2,7 +2,6 @@ package com.bank.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.Instant;
@@ -57,13 +56,4 @@ public class Event {
     @OneToMany(mappedBy = "event")
     @Builder.Default
     private List<ReviewForEvent> review = new ArrayList<>();
-
-    @NotNull
-    @Column(name="contact_number")
-    // TODO
-    private String contactNumber;
-
-    @NotNull
-    @Column(name="working_hours")
-    private String workingHours;
 }
