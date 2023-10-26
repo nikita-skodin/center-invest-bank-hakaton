@@ -3,6 +3,7 @@ package com.bank.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenerationTime;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Event {
 
     @Id
@@ -40,9 +42,11 @@ public class Event {
     @Column(name = "date_of_event")
     private Instant dateOfEvent;
 
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private Address address;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "contact_number")
+    private String number;
 
     @Column(name = "total_stars")
     private Integer totalStars;
@@ -51,11 +55,8 @@ public class Event {
     private Integer reviewCounter;
 
     @Column(name = "rating")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private double rating;
-
-    @OneToMany(mappedBy = "event")
-    @Builder.Default
-    private List<ReviewEvent> review = new ArrayList<>();
 
     @Column(name = "start_time")
     private Instant startTime;

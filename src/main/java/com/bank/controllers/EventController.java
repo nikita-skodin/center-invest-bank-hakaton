@@ -36,6 +36,7 @@ public class EventController extends MainController {
     private final static String GET_EVENT_BY_ID = "/{event_id}";
     private final static String DELETE_EVENT_BY_ID = "/{event_id}";
     private final static String UPDATE_EVENT_BY_ID = "/{event_id}";
+    private final static String UPLOAD_EVENT_BY_ID = "/{event_id}";
 
     @Operation(summary = "Get all events")
     @GetMapping(GET_ALL_EVENTS)
@@ -79,7 +80,10 @@ public class EventController extends MainController {
 
         checkBindingResult(bindingResult);
 
+        System.err.println(dto);
+        System.err.println();
         Event event = eventMapper.fromDTO(dto);
+        System.err.println(event);
         EventDTO dto1 = eventMapper.toDTO(eventService.save(event));
         return ResponseEntity
                 .ok()

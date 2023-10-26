@@ -3,6 +3,7 @@ package com.bank.dto;
 import com.bank.models.Address;
 import com.bank.models.Event;
 import com.bank.models.ReviewEvent;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 @Schema(description = "Event DTO")
 public class EventDTO {
     @Schema(name = "Event id", example = "1")
@@ -30,23 +32,32 @@ public class EventDTO {
     @NotBlank(message = "description should not be null")
     private String description;
 
+    @JsonProperty("contact_number")
+    private String number;
+
     @Schema(name = "Event images", example = "This is the images of the event")
     @Builder.Default
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<String> images = new ArrayList<>();
 
     @Schema(name = "Date of event publish", example = "timestamp")//TODO
-    private Instant dateOfPublish;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Instant dateOfPublish = Instant.now();
 
-    @Schema(name = "Date of event", example = "timestamp")//TODO
+    @Schema(name = "Date of event", example = "timestamp")
+    @JsonProperty("date_of_event")
     private Instant dateOfEvent;
 
     @Schema(name = "Landmark address")
-    private Address address;
+    private String address;
 
     @Schema(name = "Event rating", example = "3.23")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Double rating;
 
-    @Schema(name = "Event reviews", example = "This is the name of the landmark")
-    @Builder.Default
-    private List<ReviewEvent> review = new ArrayList<>();
+    @JsonProperty("start_time")
+    private Instant startTime;
+
+    @JsonProperty("end_time")
+    private Instant endTime;
 }
