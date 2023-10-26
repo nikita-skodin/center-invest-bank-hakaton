@@ -7,7 +7,7 @@ create table if not exists users
     phone_number          varchar(25),
     code_for_confirmation varchar,
     enabled               bool    not null default false,
-    confirmation_code varchar(4)
+    confirmation_code     varchar(4)
 );
 
 create table if not exists users_rating
@@ -35,8 +35,8 @@ create table if not exists landmarks
     address        varchar not null,
     coordinates    varchar not null,
     total_stars    decimal not null default 0,
-    review_counter int     not null,
-    rating         decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored
+    review_counter decimal not null,
+    rating         decimal
 );
 
 create table if not exists events
@@ -46,12 +46,13 @@ create table if not exists events
     description         varchar   not null,
     date_of_publishment timestamp not null,
     date_of_event       timestamp not null,
-    contact_number varchar not null,
-    working_hours  varchar not null,
-    address_id          integer not null,
-    total_stars         integer,
-    review_counter      integer,
-    rating              decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored,
+    contact_number      varchar   not null,
+    working_hours       varchar   not null,
+    address             varchar   not null,
+    coordinates         varchar   not null,
+    total_stars         decimal,
+    review_counter      decimal,
+    rating              decimal,
     start_time          timestamp not null,
     end_time            timestamp not null
 );
@@ -93,5 +94,5 @@ create table if not exists events_images
 create table if not exists landmarks_images
 (
     landmark_id bigint       not null references landmarks (id) on delete cascade,
-    image    varchar(255) not null
+    image       varchar(255) not null
 );

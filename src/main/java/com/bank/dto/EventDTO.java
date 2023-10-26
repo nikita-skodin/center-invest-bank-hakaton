@@ -40,7 +40,7 @@ public class EventDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<String> images = new ArrayList<>();
 
-    @Schema(name = "Date of event publish", example = "timestamp")//TODO
+    @Schema(name = "Date of event publish", example = "timestamp") //TODO
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant dateOfPublish = Instant.now();
 
@@ -56,8 +56,12 @@ public class EventDTO {
     @JsonProperty("review_counter")
     private Double reviewCounter;
 
-    @Schema(name = "Landmark address")
+    @Schema(name = "Event address symbols")
     private String address;
+
+    @Schema(name = "Event address coordinates")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String coordinates;
 
     @Schema(name = "Event rating", example = "3.23")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -44,6 +44,9 @@ public class Event {
     @Column(name="address")
     private String address;
 
+    @Column(name="coordinates")
+    private String coordinates;
+
     @Column(name = "contact_number")
     private String number;
 

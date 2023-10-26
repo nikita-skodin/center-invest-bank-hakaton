@@ -85,10 +85,7 @@ public class EventController extends MainController {
 
         checkBindingResult(bindingResult);
 
-        System.err.println(dto);
-        System.err.println();
         Event event = eventMapper.fromDTO(dto);
-        System.err.println(event);
         EventDTO dto1 = eventMapper.toDTO(eventService.save(event));
         return ResponseEntity
                 .ok()

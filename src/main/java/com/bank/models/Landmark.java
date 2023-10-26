@@ -36,25 +36,22 @@ public class Landmark {
     private String coordinates;
 
     @Column(name = "total_stars")
-    private double totalStars;
+    private Double totalStars;
 
     @Column(name = "review_counter")
-    private int reviewCounter;
+    private Double reviewCounter;
 
     @Column(name = "rating")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Double rating;
+    @Builder.Default
+    private Double rating = 0.0;
 
     @OneToMany(mappedBy = "landmark")
     @Builder.Default
     private List<ReviewLandmark> reviews = new ArrayList<>();
 
-    @NotNull
     @Column(name="contact_number")
-    // TODO
     private String contactNumber;
 
-    @NotNull
     @Column(name="working_hours")
     private String workingHours;
 
@@ -63,5 +60,12 @@ public class Landmark {
     @ElementCollection
     @Builder.Default
     private List<String> images = new ArrayList<>();
+
+    public double getRating(){
+        if (this.totalStars != null && this.reviewCounter != null) {
+            rating = this.totalStars / this.reviewCounter;
+        }
+        return rating;
+    }
 
 }
