@@ -21,13 +21,17 @@ public class ReviewEvent {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "stars")
+    private Long stars;
+
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
 
-    @Column(name = "stars")
-    private Long stars;
-
     @Column(name = "likes")
     private Long likes;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 }

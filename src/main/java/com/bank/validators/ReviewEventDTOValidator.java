@@ -20,6 +20,6 @@ public class ReviewEventDTOValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         ReviewEventDTO reviewEventDTO = (ReviewEventDTO) target;
-        eventService.getById(reviewEventDTO.getEvent_id());
+//        eventService.getById(reviewEventDTO.getEvent_id());
     }
 }
