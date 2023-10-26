@@ -34,10 +34,10 @@ public class EventDTO {
     @Builder.Default
     private List<String> images = new ArrayList<>();
 
-    @Schema(name = "Date of event publish", example = "")//TODO
+    @Schema(name = "Date of event publish", example = "timestamp")//TODO
     private Instant dateOfPublish;
 
-    @Schema(name = "Date of event", example = "")//TODO
+    @Schema(name = "Date of event", example = "timestamp")//TODO
     private Instant dateOfEvent;
 
     @Schema(name = "Landmark address")
