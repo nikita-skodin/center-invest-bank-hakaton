@@ -63,6 +63,7 @@ public class UserController extends MainController {
                 .body(reviewLandmarkMapper.toDTOs(byId.getReviewLandmarks()));
     }
 
+    @Operation(summary = "Create new user")
     @PostMapping(CREATE_USER)
     public ResponseEntity<UserDTO> createUser(
             @Valid @RequestBody UserDTO userDTO,
@@ -79,6 +80,7 @@ public class UserController extends MainController {
                 .body(userMapper.toDTO(save));
     }
 
+    @Operation(summary = "Update user")
     @PatchMapping(UPDATE_USER_BY_ID)
     public ResponseEntity<UserDTO> updateUserById(
             @PathVariable("user_id") Long userId,
@@ -96,6 +98,7 @@ public class UserController extends MainController {
                 .body(userMapper.toDTO(update));
     }
 
+    @Operation(summary = "Delete user")
     @DeleteMapping(DELETE_USER_BY_ID)
     ResponseEntity<HttpStatus> deleteEventById(
             @PathVariable("user_id") Long id){
