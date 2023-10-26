@@ -22,8 +22,7 @@ public class AddressService {
     }
 
     public AddressDTO getAddressBy(String address){
-        Optional<AddressDTO> optional= addressRepository.findAddress(address);
-        return addressRepository.findAddress(address).orElseThrow(()
+        return addressRepository.findByAddress(address).orElseThrow(()
                 -> new BagRequestException("Address with this id not found!"));
     }
 

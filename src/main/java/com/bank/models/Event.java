@@ -62,4 +62,6 @@ public class Event {
 
     @Column(name = "end_time")
     private Instant endTime;
+
+
 }

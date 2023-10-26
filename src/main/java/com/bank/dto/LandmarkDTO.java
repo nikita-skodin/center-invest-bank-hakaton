@@ -12,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Schema(description = "Landmark DTO")
 public class LandmarkDTO {
+
     @Schema(name = "Landmark id", example = "1")
     private Long id;
     @Schema(name = "Landmark title", example = "This is the name of the landmark")
@@ -24,4 +25,5 @@ public class LandmarkDTO {
     private Double rating;
     @Schema(name = "Landmark reviews", example = "This is the name of the landmark")
     private List<ReviewLandmarkDTO> reviews;
+
 }
