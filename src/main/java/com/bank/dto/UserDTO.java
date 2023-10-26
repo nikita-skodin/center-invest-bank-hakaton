@@ -32,5 +32,10 @@ public class UserDTO {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordConfirmation;
 
-    private RatingDTO rating;
+    @Schema(name = "User experience", example = "12345")
+    private Integer points;
+
+    @Schema(name = "User rank", example = "New member")
+    private String rank;
+
 }

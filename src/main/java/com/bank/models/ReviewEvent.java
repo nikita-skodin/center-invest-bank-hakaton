@@ -3,6 +3,8 @@ package com.bank.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.Instant;
+
 @Getter
 @Setter
 @Entity
@@ -34,4 +36,7 @@ public class ReviewEvent {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+//
+//    @Column(name = "creation_time")
+//    private Instant creationTime;
 }
