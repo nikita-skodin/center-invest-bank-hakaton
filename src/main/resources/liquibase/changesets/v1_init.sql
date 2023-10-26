@@ -49,7 +49,7 @@ create table if not exists events
     address             varchar   not null,
     total_stars         integer,
     review_counter      integer,
-    rating              decimal generated always as ( total_stars::numeric / review_counter::numeric ) stored,
+    rating              decimal,
     start_time          timestamp not null,
     end_time            timestamp not null
 );

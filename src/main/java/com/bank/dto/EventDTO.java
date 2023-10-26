@@ -48,12 +48,21 @@ public class EventDTO {
     @JsonProperty("date_of_event")
     private Instant dateOfEvent;
 
+    @Schema(name = "Total stars", example = "100")
+    @JsonProperty("total_stars")
+    private Double totalStars;
+
+    @Schema(name = "Review count", example = "20")
+    @JsonProperty("review_counter")
+    private Double reviewCounter;
+
     @Schema(name = "Landmark address")
     private String address;
 
     @Schema(name = "Event rating", example = "3.23")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Double rating;
+    @Builder.Default
+    private Double rating = 0.0;
 
     @JsonProperty("start_time")
     private Instant startTime;

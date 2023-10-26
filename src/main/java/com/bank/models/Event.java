@@ -16,7 +16,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Event {
 
     @Id
@@ -49,14 +48,14 @@ public class Event {
     private String number;
 
     @Column(name = "total_stars")
-    private Integer totalStars;
+    private Double totalStars;
 
     @Column(name = "review_counter")
-    private Integer reviewCounter;
+    private Double reviewCounter;
 
     @Column(name = "rating")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private double rating;
+    @Builder.Default
+    private Double rating = 0.0;
 
     @Column(name = "start_time")
     private Instant startTime;
@@ -64,5 +63,10 @@ public class Event {
     @Column(name = "end_time")
     private Instant endTime;
 
-
+    public double getRating(){
+        if (this.totalStars != null && this.reviewCounter != null) {
+            rating = this.totalStars / this.reviewCounter;
+        }
+        return rating;
+    }
 }
