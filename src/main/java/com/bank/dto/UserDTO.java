@@ -1,5 +1,6 @@
 package com.bank.dto;
 
+import com.bank.models.Rating;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,9 +18,8 @@ public class UserDTO {
     private String username;
     @Schema(name = "User email", example = "mrk@gmail.com")
     private String email;
-
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
     @Schema(name = "Password confirmation", example = "12345")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passwordConfirmation;
