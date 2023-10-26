@@ -22,5 +22,4 @@ public class AddressDTO {
     
     @Schema(name = "Address id", example = "54.013194, 27.68137") // TODO: 026
     private String coordinates;
-    //
 }

@@ -29,7 +29,8 @@ public class UserDTO {
     private String password;
 
     @Schema(name = "Password confirmation", example = "12345")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY,
+            value = "password_confirmation")
     private String passwordConfirmation;
 
     @Schema(name = "User experience", example = "12345")

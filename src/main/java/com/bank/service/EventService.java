@@ -50,4 +50,8 @@ public class EventService {
     public void deleteById(Long aLong) {
         eventRepository.deleteById(aLong);
     }
+
+    public List<Event> findAllByTitleStartingWith(String trim) {
+        return eventRepository.findAllByTitleStartingWith(trim);
+    }
 }

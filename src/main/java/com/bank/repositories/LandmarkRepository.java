@@ -10,13 +10,7 @@ import java.util.Optional;
 @Repository
 public interface LandmarkRepository extends JpaRepository<Landmark,Long> {
     List<Landmark> findAllByAddress_Address(String address);
-
     List<Landmark> findAllByTitle(String title);
-
     Optional<Landmark> findByTitle(String title);
-    Optional<Landmark> findById(int id);
-
-
-
-
+    List<Landmark> findAllByTitleStartingWith(String trim);
 }

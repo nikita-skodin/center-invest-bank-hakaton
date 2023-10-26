@@ -13,6 +13,5 @@ import java.util.Optional;
 public interface EventRepository extends JpaRepository<Event, Long> {
     Optional<Event> findEventByTitle(String title);
     void deleteAllByStartTimeAfter(Instant instant);
-
-
+    List<Event> findAllByTitleStartingWith(String trim);
 }

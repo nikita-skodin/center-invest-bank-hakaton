@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -37,11 +38,20 @@ public class EventController extends MainController {
 
     @Operation(summary = "Get all events")
     @GetMapping(GET_ALL_EVENTS)
-    ResponseEntity<List<EventDTO>> getAllEvents(){
-        List<Event> events = eventService.getAll();
+    ResponseEntity<List<EventDTO>> getAllEvents(
+            @RequestParam(required = false) Optional<String> prefix,
+            @RequestParam(required = false) Optional<Integer> limit){
+        List<Event> events;
+
+        if (prefix.isPresent()) {
+            events = eventService.findAllByTitleStartingWith(prefix.get().trim()); // вместо проверки просто trim
+        } else {
+            events = eventService.getAll();
+        }
+
         return ResponseEntity
                 .ok()
-                .body(eventMapper.toDTOs(events));
+                .body(eventMapper.toDTOs(events).subList(0, limit.orElse(events.size())));  // может не хватать одного элемента
     }
 
     @Operation(summary = "Get event by id")

@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/landmarks")
 @RequiredArgsConstructor
@@ -25,8 +28,21 @@ public class LandmarkController extends MainController {
 
     @Operation(summary = "Get all landmarks")
     @GetMapping
-    public ResponseEntity<Object> getAll() {
-        return new ResponseEntity<>(landmarkMapper.toDTOs(landmarkService.getAll()), HttpStatus.OK);
+    public ResponseEntity<Object> getAll(
+            @RequestParam(required = false) Optional<String> prefix,
+            @RequestParam(required = false) Optional<Integer> limit) {
+
+        List<Landmark> all;
+
+        if (prefix.isPresent()) {
+            all = landmarkService.findAllByTitleStartingWith(prefix.get().trim()); // вместо проверки просто trim
+        } else {
+            all = landmarkService.getAll();
+        }
+
+        return ResponseEntity
+                .ok()
+                .body(landmarkMapper.toDTOs(all).subList(0, limit.orElse(all.size())));  // может не хватать одного элемента
     }
 
     @Operation(summary = "Get landmark by id")
@@ -61,17 +77,11 @@ public class LandmarkController extends MainController {
 
     @PostMapping("/{id}/update")
     public ResponseEntity<Object> update(@PathVariable("id") int id,
-            @RequestBody LandmarkDTO landmarkDTO) {
-        landmarkService.update(id,landmarkMapper.fromDTO(landmarkDTO));
+                                         @RequestBody LandmarkDTO landmarkDTO) {
+        landmarkService.update(id, landmarkMapper.fromDTO(landmarkDTO));
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-
-
-
-
-
 
 
 }

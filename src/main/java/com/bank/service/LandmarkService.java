@@ -72,4 +72,8 @@ public class LandmarkService {
         updatedLandmark.setId(id);
         landMarkRepository.save(updatedLandmark);
     }
+
+    public List<Landmark> findAllByTitleStartingWith(String trim) {
+        return landMarkRepository.findAllByTitleStartingWith(trim);
+    }
 }
