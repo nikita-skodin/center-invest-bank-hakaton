@@ -69,7 +69,8 @@ create table if not exists reviews_event
     title    varchar(50)                   not null,
     message  varchar(400),
     stars    int default 0,
-    event_id bigint references events (id) not null
+    event_id bigint references events (id) not null,
+    likes       bigint default 0
 );
 
 create table if not exists reviews_landmark
