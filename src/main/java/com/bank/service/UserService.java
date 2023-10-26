@@ -1,6 +1,8 @@
 package com.bank.service;
 
+import com.bank.dto.UserDTO;
 import com.bank.exceptions.ResourceNotFoundException;
+import com.bank.models.Event;
 import com.bank.models.Rating;
 import com.bank.utils.enums.Role;
 import com.bank.models.User;
@@ -59,4 +61,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public User update(Long id, User user) {
+        User user1 = getById(id);
+
+        user.setId(user1.getId());
+
+        return userRepository.save(user1);
+    }
+
+    @Transactional
+    public void deleteById(Long aLong) {
+        userRepository.deleteById(aLong);
+    }
 }

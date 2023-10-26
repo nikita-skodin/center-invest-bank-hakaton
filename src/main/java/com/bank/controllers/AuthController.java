@@ -7,7 +7,7 @@ import com.bank.security.JWTResponse;
 import com.bank.service.AuthService;
 import com.bank.service.UserService;
 import com.bank.utils.mappers.impl.UserMapper;
-import com.bank.validators.UserValidator;
+import com.bank.validators.UserDTOValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController extends MainController{
     private final AuthService authService;
     private final UserService userService;
-    private final UserValidator userValidator;
+    private final UserDTOValidator userValidator;
     private final UserMapper userMapper;
 
     @PostMapping("/login")
