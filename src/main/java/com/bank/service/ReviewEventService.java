@@ -32,6 +32,7 @@ public class ReviewEventService {
 
     @Transactional
     public ReviewEvent save(ReviewEvent reviewEvent){
+        reviewEvent.setLikes(0L);
         reviewEventRepository.save(reviewEvent);
         return reviewEvent;
     }
@@ -41,4 +42,14 @@ public class ReviewEventService {
         reviewEvent.setId(id);
         System.out.println(reviewEvent.getId());
         return reviewEventRepository.save(reviewEvent);
-    }}
+    }
+
+    @Transactional
+    public ReviewEvent putLikeForReview(Long reviewId){
+        ReviewEvent reviewEvent = getById(reviewId);
+        reviewEvent.setLikes(reviewEvent.getLikes()+1);
+        reviewEventRepository.save(reviewEvent);
+        return reviewEvent;
+    }
+
+}

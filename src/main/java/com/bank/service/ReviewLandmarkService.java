@@ -32,6 +32,7 @@ public class ReviewLandmarkService {
 
     @Transactional
     public ReviewLandmark save(ReviewLandmark reviewLandmark){
+        reviewLandmark.setLikes(0L);
         reviewLandmarkRepository.save(reviewLandmark);
         return reviewLandmark;
     }
@@ -43,5 +44,12 @@ public class ReviewLandmarkService {
         return reviewLandmarkRepository.save(reviewLandmark);
     }
 
+    @Transactional
+    public ReviewLandmark putLikeForReview(Long reviewId){
+        ReviewLandmark reviewLandmark = getById(reviewId);
+        reviewLandmark.setLikes(reviewLandmark.getLikes()+1);
+        reviewLandmarkRepository.save(reviewLandmark);
+        return reviewLandmark;
+    }
 
 }

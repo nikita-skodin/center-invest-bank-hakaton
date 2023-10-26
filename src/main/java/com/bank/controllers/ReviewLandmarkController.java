@@ -2,12 +2,12 @@ package com.bank.controllers;
 
 import com.bank.dto.ReviewLandmarkDTO;
 import com.bank.models.ReviewLandmark;
+import com.bank.service.RatingService;
 import com.bank.service.ReviewLandmarkService;
 import com.bank.utils.mappers.impl.ReviewLandmarkMapper;
 import com.bank.validators.ReviewLandmarkDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +23,7 @@ public class ReviewLandmarkController extends MainController {
     private final ReviewLandmarkService reviewLandmarkService;
     private final ReviewLandmarkMapper reviewLandmarkMapper;
     private final ReviewLandmarkDTOValidator reviewLandmarkDTOValidator;
-
+    private final RatingService ratingService;
 
     @Operation(summary = "Get all landmark reviews")
     @GetMapping
@@ -53,8 +53,7 @@ public class ReviewLandmarkController extends MainController {
         checkBindingResult(bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
         reviewLandmark = reviewLandmarkService.save(reviewLandmark);
-        System.out.println(reviewLandmark.getId());
-        System.out.println(reviewLandmark.getTitle());
+        ratingService.updateUserRating(50); //TODO
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
 
@@ -66,6 +65,15 @@ public class ReviewLandmarkController extends MainController {
         reviewLandmarkDTOValidator.validate(reviewLandmarkDTO, bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
         reviewLandmark = reviewLandmarkService.update(reviewId, reviewLandmark);
+        return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
+    }
+
+
+    @Operation(summary = "Put like for a review")
+    @PatchMapping("/{review_id}/likes")
+    public ResponseEntity<Object> putLikeForReview(@PathVariable("review_id") Long reviewId){
+        ReviewLandmark reviewLandmark = reviewLandmarkService.putLikeForReview(reviewId);
+        ratingService.updateUserRating(1); //TODO
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package com.bank.models;
 
-import com.bank.utils.enums.RatingStatus;
+import com.bank.utils.enums.UserRank;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,9 +22,9 @@ public class Rating {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "status")
+    @Column(name = "rank")
     @Enumerated(EnumType.STRING)
-    private RatingStatus status;
+    private UserRank rank;
 
     @Column(name = "points")
     private Integer points;

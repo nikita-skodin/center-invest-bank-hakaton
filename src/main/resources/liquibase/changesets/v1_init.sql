@@ -11,7 +11,7 @@ create table if not exists users
 create table if not exists users_rating
 (
     user_id bigint references users (id) primary key,
-    status  varchar(255) not null,
+    rank  varchar(255) not null,
     points  bigint default 0
 );
 

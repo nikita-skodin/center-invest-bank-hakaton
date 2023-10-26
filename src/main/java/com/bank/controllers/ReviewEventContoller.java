@@ -2,7 +2,9 @@ package com.bank.controllers;
 
 import com.bank.dto.ReviewEventDTO;
 import com.bank.models.ReviewEvent;
+import com.bank.service.RatingService;
 import com.bank.service.ReviewEventService;
+import com.bank.service.UserService;
 import com.bank.utils.mappers.impl.ReviewEventMapper;
 import com.bank.validators.ReviewEventDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +23,7 @@ public class ReviewEventContoller extends MainController{
     private final ReviewEventService reviewEventService;
     private final ReviewEventMapper reviewEventMapper;
     private final ReviewEventDTOValidator reviewEventDTOValidator;
+    private final RatingService ratingService;
 
     @Operation(summary = "Get all event reviews")
     @GetMapping
@@ -50,6 +53,7 @@ public class ReviewEventContoller extends MainController{
         checkBindingResult(bindingResult);
         ReviewEvent reviewEvent = reviewEventMapper.fromDTO(reviewEventDTODTO);
         reviewEvent = reviewEventService.save(reviewEvent);
+        ratingService.updateUserRating(50); //TODO
         return new ResponseEntity<>(reviewEventMapper.toDTO(reviewEvent), HttpStatus.OK);
     }
 
@@ -62,6 +66,14 @@ public class ReviewEventContoller extends MainController{
         reviewEventDTOValidator.validate(reviewEventDTODTO, bindingResult);
         ReviewEvent reviewEvent = reviewEventMapper.fromDTO(reviewEventDTODTO);
         reviewEvent = reviewEventService.update(reviewId, reviewEvent);
+        return new ResponseEntity<>(reviewEventMapper.toDTO(reviewEvent), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Put like for a review")
+    @PatchMapping("/{review_id}/likes")
+    public ResponseEntity<Object> putLikeForReview(@PathVariable("review_id") Long reviewId){
+        ReviewEvent reviewEvent = reviewEventService.putLikeForReview(reviewId);
+        ratingService.updateUserRating(1); //TODO
         return new ResponseEntity<>(reviewEventMapper.toDTO(reviewEvent), HttpStatus.OK);
     }
 }
