@@ -1,5 +1,7 @@
 package com.bank.service;
 
+import com.bank.dto.AddressDTO;
+import com.bank.exceptions.BagRequestException;
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Address;
 import com.bank.repositories.AddressRepository;
@@ -8,8 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
-@RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AddressService {
     private final AddressRepository addressRepository;
@@ -21,7 +24,7 @@ public class AddressService {
     public AddressDTO getAddressBy(String address){
         Optional<AddressDTO> optional= addressRepository.findAddress(address);
         return addressRepository.findAddress(address).orElseThrow(()
-                -> new NotFoundException("Address with this id not found!"));
+                -> new BagRequestException("Address with this id not found!"));
     }
 
     public void save (Address address){

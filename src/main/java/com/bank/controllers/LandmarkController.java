@@ -59,9 +59,10 @@ public class LandmarkController extends MainController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PostMapping("/id/update")
-    public ResponseEntity<Object> update(@RequestBody LandmarkDTO landmarkDTO) {
-        landmarkService.update(landmarkMapper.fromDTO(landmarkDTO));
+    @PostMapping("/{id}/update")
+    public ResponseEntity<Object> update(@PathVariable("id") int id,
+            @RequestBody LandmarkDTO landmarkDTO) {
+        landmarkService.update(id,landmarkMapper.fromDTO(landmarkDTO));
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
