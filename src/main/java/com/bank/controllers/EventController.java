@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,11 @@ public class EventController {
     }
 
     @PostMapping(CREATE_EVENT)
-    ResponseEntity<EventDTO> createEvent(@RequestBody @Valid EventDTO dto){
+    ResponseEntity<EventDTO> createEvent(
+            @RequestBody
+            @Valid EventDTO dto,
+            BindingResult bindingResult
+            ){
 
         Event event = eventMapper.fromDTO(dto);
         EventDTO dto1 = eventMapper.toDTO(eventService.save(event));

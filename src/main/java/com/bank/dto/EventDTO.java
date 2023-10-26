@@ -1,7 +1,7 @@
 package com.bank.dto;
 
 import com.bank.models.Address;
-import com.bank.models.ReviewForEvent;
+import com.bank.models.Event;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -19,9 +19,10 @@ public class EventDTO {
 
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "title should not be null")
     private String title;
 
+    @NotBlank(message = "description should not be null")
     private String description;
 
     @Builder.Default
@@ -40,5 +41,5 @@ public class EventDTO {
     private double rating;
 
     @Builder.Default
-    private List<ReviewForEvent> review = new ArrayList<>();
+    private List<Event> review = new ArrayList<>();
 }
