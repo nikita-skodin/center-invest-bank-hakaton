@@ -15,34 +15,34 @@ import java.util.List;
 @Schema(description = "Landmark DTO")
 public class LandmarkDTO {
 
-    @Schema(name = "Landmark id", example = "1")
+    @Schema(name = "id", example = "1")
     private Long id;
-
-    @Schema(name = "Landmark title", example = "This is the name of the landmark")
+    @Schema(name = "title", example = "This is the name of the landmark")
     private String title;
-
-    @Schema(name = "Landmark description", example = "This is the description of the landmark")
+    @Schema(name = "description", example = "This is the description of the landmark")
     private String description;
 
-    @Schema(name = "Landmark address")
+    @Schema(name = "images")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<String> images = new ArrayList<>();
 
+    @Schema(name = "address")
     private String address;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String coordinates;
 
-    @Schema(name = "Landmark rating", example = "3.23")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @Builder.Default
-    private Double rating = 0.0;
+    @Schema(name = "rating", example = "3.23")
+    private Double rating;
 
-    @Schema(name = "Landmark reviews", example = "This is the name of the landmark")
+    @Schema(name = "reviews", example = "This is the name of the landmark")
     private List<ReviewLandmarkDTO> reviews;
 
+    @Schema(name = "contact_number", example = "+375447517324")
+    @JsonProperty("contact_number")
     private String contactNumber;
 
+    @Schema(name = "working_hours", example = "12-21")
+    @JsonProperty("working_hours")
     private String workingHours;
 
 }
