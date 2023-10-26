@@ -8,6 +8,7 @@ import com.bank.utils.mappers.impl.ReviewLandmarkMapper;
 import com.bank.validators.ReviewLandmarkDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +28,13 @@ public class ReviewLandmarkController extends MainController {
 
     @Operation(summary = "Get all landmark reviews")
     @GetMapping
-    public ResponseEntity<Object> getAll(){
+    public ResponseEntity<Object> getAll() {
         return new ResponseEntity<>(reviewLandmarkMapper.toDTOs(reviewLandmarkService.getAll()), HttpStatus.OK);
     }
 
     @Operation(summary = "Get event review by id")
     @GetMapping("/{review_id}")
-    public ResponseEntity<Object> getById(@PathVariable("review_id") Long id){
+    public ResponseEntity<Object> getById(@PathVariable("review_id") Long id) {
         ReviewLandmark reviewLandmark = reviewLandmarkService.getById(id);
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);
     }
@@ -41,14 +42,15 @@ public class ReviewLandmarkController extends MainController {
     @Operation(summary = "Delete event review by id")
     @DeleteMapping("/{review_id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteById(@PathVariable("review_id") Long id){
+    public void deleteById(@PathVariable("review_id") Long id) {
         reviewLandmarkService.deleteById(id);
     }
 
     @Operation(summary = "Create new event review")
     @PostMapping
-    public ResponseEntity<Object> createNewLandmarkReview(@RequestBody ReviewLandmarkDTO reviewLandmarkDTO,
-                                                          BindingResult bindingResult){
+    public ResponseEntity<Object> createNewLandmarkReview(
+            @RequestBody @Valid ReviewLandmarkDTO reviewLandmarkDTO,
+            BindingResult bindingResult) {
         reviewLandmarkDTOValidator.validate(reviewLandmarkDTO, bindingResult);
         checkBindingResult(bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
@@ -60,8 +62,8 @@ public class ReviewLandmarkController extends MainController {
     @Operation(summary = "Update existing event review")
     @PatchMapping("/{review_id}")
     public ResponseEntity<Object> updateReview(@PathVariable("review_id") Long reviewId,
-                                               @RequestBody ReviewLandmarkDTO reviewLandmarkDTO,
-                                               BindingResult bindingResult){
+                                               @RequestBody @Valid ReviewLandmarkDTO reviewLandmarkDTO,
+                                               BindingResult bindingResult) {
         reviewLandmarkDTOValidator.validate(reviewLandmarkDTO, bindingResult);
         ReviewLandmark reviewLandmark = reviewLandmarkMapper.fromDTO(reviewLandmarkDTO);
         reviewLandmark = reviewLandmarkService.update(reviewId, reviewLandmark);
@@ -71,7 +73,7 @@ public class ReviewLandmarkController extends MainController {
 
     @Operation(summary = "Put like for a review")
     @PatchMapping("/{review_id}/likes")
-    public ResponseEntity<Object> putLikeForReview(@PathVariable("review_id") Long reviewId){
+    public ResponseEntity<Object> putLikeForReview(@PathVariable("review_id") Long reviewId) {
         ReviewLandmark reviewLandmark = reviewLandmarkService.putLikeForReview(reviewId);
         ratingService.updateUserRating(1); //TODO
         return new ResponseEntity<>(reviewLandmarkMapper.toDTO(reviewLandmark), HttpStatus.OK);

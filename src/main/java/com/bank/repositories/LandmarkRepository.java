@@ -13,7 +13,5 @@ public interface LandmarkRepository extends JpaRepository<Landmark,Long> {
     Optional<Landmark> findByTitle(String title);
     Optional<Landmark> findByAddress(String title);
     List<Landmark> findAllByTitleStartingWith(String trim);
-
-
-
+    Optional<Landmark> findLandmarksByTitle(String title);
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.Instant;
@@ -21,6 +22,7 @@ import java.util.List;
 @ToString
 @Schema(description = "Event DTO")
 public class EventDTO {
+
     @Schema(name = "id", example = "1")
     private Long id;
 
@@ -32,21 +34,31 @@ public class EventDTO {
     @NotBlank(message = "description should not be null")
     private String description;
 
-    @JsonProperty("number")
-    private String number;
-
-    @Schema(name = "images", example = "This is the images of the event")
-    @Builder.Default
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<String> images = new ArrayList<>();
-
-    @Schema(name = "Date of event publish", example = "timestamp")//TODO
+    @Schema(name = "Date of event publish", example = "timestamp")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Instant dateOfPublish = Instant.now();
 
     @Schema(name = "date_of_event", example = "timestamp")
     @JsonProperty("date_of_event")
+    @NotNull(message = "date_of_event should not be null")
     private Instant dateOfEvent;
+
+    @Schema(name = "contact_number", example = "Contact number")
+    @JsonProperty("contact_number")
+    private String contactNumber;
+
+    @Schema(name = "address")
+    @NotBlank(message = "address should not be null")
+    private String address;
+
+    @Schema(name = "coordinates")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String coordinates;
+
+    @Schema(name = "images", example = "This is the images of the event")
+    @Builder.Default
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<String> images = new ArrayList<>();
 
     @Schema(name = "total_stars", example = "100")
     @JsonProperty("total_stars")
@@ -55,13 +67,6 @@ public class EventDTO {
     @Schema(name = "review_counter", example = "20")
     @JsonProperty("review_counter")
     private Double reviewCounter;
-
-    @Schema(name = "address")
-    private String address;
-
-    @Schema(name = "coordinates")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String coordinates;
 
     @Schema(name = "rating", example = "3.23")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

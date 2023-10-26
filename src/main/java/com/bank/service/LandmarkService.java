@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -25,27 +26,28 @@ public class LandmarkService {
     private final ObjectMapper objectMapper;
     private final AddressRepository addressRepository;
 
-    public Landmark getById(Long id){
+    public Landmark getById(Long id) {
         return landMarkRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("Landmark with this id not found!"));
     }
-    public Landmark getByTitle(String title){
+
+    public Landmark getByTitle(String title) {
         return landMarkRepository.findByTitle(title).orElseThrow(()
-                 -> new ResourceNotFoundException("Landmark with this title not found!"));
+                -> new ResourceNotFoundException("Landmark with this title not found!"));
     }
 
-    public List<Landmark> getAll(){
+    public List<Landmark> getAll() {
         landMarkRepository.deleteAll();
         return landMarkRepository.findAll();
     }
 
 
-    public List<Landmark> getAllByTitle(String address){
+    public List<Landmark> getAllByTitle(String address) {
         return landMarkRepository.findAllByTitle(address);
     }
 
     @Transactional
-    public <S extends Landmark> S save(S landmark){
+    public <S extends Landmark> S save(S landmark) {
         return landMarkRepository.save(landmark);
     }
 
@@ -70,7 +72,7 @@ public class LandmarkService {
     }
 
     @Transactional
-    public void deleteImage(Long id, String imageName){
+    public void deleteImage(Long id, String imageName) {
         Landmark landmark = getById(id);
         List<String> images = landmark.getImages();
         if (!images.remove(imageName))
@@ -80,7 +82,11 @@ public class LandmarkService {
     }
 
     public Landmark findByAddress(String address) {
-        return landMarkRepository.findByAddress(address).orElseThrow(()
-            ->new ResourceNotFoundException("Landmark with this address not found!"));
+        return landMarkRepository.findByAddress(address).orElseThrow(
+                () -> new ResourceNotFoundException("Landmark with this address not found!"));
+    }
+
+    public Optional<Landmark> getLandmarksByTitle(String title) {
+        return landMarkRepository.findLandmarksByTitle(title);
     }
 }

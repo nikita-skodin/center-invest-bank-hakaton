@@ -2,6 +2,7 @@ package com.bank.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Getter
@@ -16,9 +17,11 @@ public class ReviewEventDTO {
     private Long id;
 
     @Schema(name = "title", example = "This is review")
+    @NotBlank(message = "title should not be blank")
     private String title;
 
     @Schema(name = "message", example = "This is description about review")
+    @NotBlank(message = "message should not be blank")
     private String message;
 
     @Schema(name = "event_id", example = "1")
