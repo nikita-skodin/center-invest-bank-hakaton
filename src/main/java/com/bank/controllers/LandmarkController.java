@@ -87,7 +87,7 @@ public class LandmarkController extends MainController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @Operation(summary = "Get all images for post by post id")
+    @Operation(summary = "Get all images for landmark by landmark id")
     @GetMapping("/{landmark_id}/images")
     public ResponseEntity<Object> getAllImagesForPost(@PathVariable("landmark_id") Long landmarkId) {
         return new ResponseEntity<>(landmarkService.getById(landmarkId).getImages(), HttpStatus.OK);

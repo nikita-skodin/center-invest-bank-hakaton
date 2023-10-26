@@ -118,13 +118,13 @@ public class EventController extends MainController {
     }
 
 
-    @Operation(summary = "Get all images for post by post id")
-    @GetMapping("/{landmark_id}/images")
-    public ResponseEntity<Object> getAllImagesForPost(@PathVariable("landmark_id") Long landmarkId){
+    @Operation(summary = "Get all images for event by event id")
+    @GetMapping("/{event_id}/images")
+    public ResponseEntity<Object> getAllImagesForPost(@PathVariable("event_id") Long landmarkId){
         return new ResponseEntity<>(eventService.getById(landmarkId).getImages(), HttpStatus.OK);
     }
 
-    @Operation(summary = "Add image for landmark by landmark id")
+    @Operation(summary = "Add image for event by event id")
     @PostMapping( "/{event_id}/images/add")
     public ResponseEntity<Object> uploadImageForPost(@PathVariable("event_id") Long postId,
                                                      @ModelAttribute ImageDTO imageDTO){
@@ -133,7 +133,7 @@ public class EventController extends MainController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete image for landmark by landmark id")
+    @Operation(summary = "Delete image for event by event id")
     @DeleteMapping("/{event_id}/images/delete")
     @ResponseStatus(HttpStatus.OK)
     //  @PreAuthorize("@customSecurityExpression.isPostOwner(#postId)") TODO
