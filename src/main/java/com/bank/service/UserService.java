@@ -1,14 +1,17 @@
 package com.bank.service;
 
 import com.bank.dto.UserDTO;
+import com.bank.exceptions.InvalidOperationException;
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Event;
 import com.bank.models.Rating;
+import com.bank.security.JWTEntity;
 import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import com.bank.repositories.UserRepository;
 import com.bank.utils.enums.UserRank;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,11 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public User getAuthorizedUser(){
+        JWTEntity jwtEntity = (JWTEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userRepository.findById(jwtEntity.getId()).orElseThrow(() -> new ResourceNotFoundException("Not authorized!"));
+    }
 
     public User getById(Long id){
         return userRepository.findById(id)
@@ -84,8 +92,10 @@ public class UserService {
     }
 
     @Transactional
-    public void enalbe(String email){
+    public void enalbe(String email, String confirmationCode){
         User user = getByEmail(email);
+        if (!user.getConfirmationCode().equals(confirmationCode))
+            throw new InvalidOperationException("Code and code confirmation doesnt match");
         user.setEnabled(true);
         userRepository.save(user);
     }

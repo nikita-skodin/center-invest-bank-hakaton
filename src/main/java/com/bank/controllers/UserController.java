@@ -4,7 +4,9 @@ package com.bank.controllers;
 import com.bank.dto.ReviewLandmarkDTO;
 import com.bank.dto.UserDTO;
 import com.bank.models.User;
+import com.bank.service.EmailService;
 import com.bank.service.UserService;
+import com.bank.utils.enums.EmailType;
 import com.bank.utils.mappers.impl.ReviewLandmarkMapper;
 import com.bank.utils.mappers.impl.UserMapper;
 import com.bank.validators.UserDTOValidator;
@@ -18,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -29,6 +32,7 @@ public class UserController extends MainController {
     private final UserMapper userMapper;
     private final UserDTOValidator userDTOValidator;
     private final ReviewLandmarkMapper reviewLandmarkMapper;
+    private final EmailService emailService;
 
     private final static String GET_ALL_USERS = "";
     private final static String CREATE_USER = "";
@@ -100,10 +104,17 @@ public class UserController extends MainController {
 
     @Operation(summary = "Delete user")
     @DeleteMapping(DELETE_USER_BY_ID)
-    ResponseEntity<HttpStatus> deleteEventById(
+    public ResponseEntity<HttpStatus> deleteEventById(
             @PathVariable("user_id") Long id){
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/payment")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void payAndGetCheck(){
+        emailService.sendEmailMessage(userService.getAuthorizedUser(), EmailType.PAYMENT, new Properties());
     }
 
 }

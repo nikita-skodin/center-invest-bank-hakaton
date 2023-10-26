@@ -36,7 +36,7 @@ public class EventController extends MainController {
     private final ImageMapper imageMapper;
 
     private final static String GET_ALL_EVENTS = "";
-    private final static String CREATE_EVENT = "";
+    private final static String CREATE_EVENT = "/create"; //TODO написал, чтобы аутентификацию написать
     private final static String GET_EVENT_BY_ID = "/{event_id}";
     private final static String DELETE_EVENT_BY_ID = "/{event_id}";
     private final static String UPDATE_EVENT_BY_ID = "/{event_id}";

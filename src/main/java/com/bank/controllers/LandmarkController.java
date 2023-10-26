@@ -64,7 +64,6 @@ public class LandmarkController extends MainController {
             @RequestBody @Valid LandmarkDTO landmarkDTO, BindingResult bindingResult) {
         landmarkDTOValidator.validate(landmarkDTO, bindingResult);
         checkBindingResult(bindingResult);
-
         landmarkService.save(landmarkMapper.fromDTO(landmarkDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }

@@ -2,7 +2,7 @@ package com.bank.controllers;
 
 import com.bank.dto.UserDTO;
 import com.bank.models.User;
-import com.bank.props.EmailType;
+import com.bank.utils.enums.EmailType;
 import com.bank.security.JWTRequest;
 import com.bank.security.JWTResponse;
 import com.bank.service.AuthService;
@@ -45,7 +45,7 @@ public class AuthController extends MainController{
 
     @PostMapping("/enable")
     public ResponseEntity<Object> enableUser(@RequestBody UserDTO userDTO){
-        userService.enalbe(userDTO.getEmail());
+        userService.enalbe(userDTO.getEmail(), userDTO.getConfirmationCode());
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
 }
