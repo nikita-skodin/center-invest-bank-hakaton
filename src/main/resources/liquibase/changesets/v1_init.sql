@@ -54,8 +54,8 @@ create table if not exists events
     total_stars         decimal,
     review_counter      decimal,
     rating              decimal,
-    start_time          timestamp not null,
-    end_time            timestamp not null
+    start_time          timestamp,
+    end_time            timestamp
 );
 
 create table if not exists reviews_event
