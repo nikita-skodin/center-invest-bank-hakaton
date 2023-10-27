@@ -5,6 +5,7 @@ import com.bank.models.Event;
 import com.bank.models.Image;
 import com.bank.models.Landmark;
 import com.bank.repositories.EventRepository;
+import com.bank.utils.CoordinatesConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class EventService {
     private final ImageService imageService;
 
     private final EventRepository eventRepository;
+    private final CoordinatesConverter coordinatesConverter;
 
     public List<Event> getAll() {
         eventRepository.deleteAllByStartTimeAfter(Instant.now());
@@ -40,12 +42,13 @@ public class EventService {
         Event event = getById(id);
 
         entity.setId(event.getId());
-
+        entity.setCoordinates(coordinatesConverter.getCoordinates(entity.getAddress()));
         return eventRepository.save(entity);
     }
 
     @Transactional
     public <S extends Event> S save(S entity) {
+        entity.setCoordinates(coordinatesConverter.getCoordinates(entity.getAddress()));
         return eventRepository.save(entity);
     }
 

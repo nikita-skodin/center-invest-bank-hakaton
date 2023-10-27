@@ -62,8 +62,8 @@ public class LandmarkController extends MainController {
     @PostMapping("/create")
     public ResponseEntity<Object> createNewLandmark(
             @RequestBody @Valid LandmarkDTO landmarkDTO, BindingResult bindingResult) {
-        landmarkDTOValidator.validate(landmarkDTO, bindingResult);
-        checkBindingResult(bindingResult);
+        //landmarkDTOValidator.validate(landmarkDTO, bindingResult);
+        //checkBindingResult(bindingResult);
         landmarkService.save(landmarkMapper.fromDTO(landmarkDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
@@ -71,6 +71,12 @@ public class LandmarkController extends MainController {
     @GetMapping("/{address}")
     public Landmark getByAddress(@PathVariable("address") String address) {
         return landmarkService.findByAddress(address);
+    }
+
+    @GetMapping("/")
+    public String getAllCoordinates(){
+        //return landmarkService.getAllCoordinates();
+        return null;
     }
 
     @PostMapping("/{id}/update")

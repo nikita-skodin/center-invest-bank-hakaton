@@ -1,5 +1,6 @@
 package com.bank;
 
+import com.bank.utils.CoordinatesConverter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +18,12 @@ public class BankApplication {
     public RestTemplate restTemplate(){
         return new RestTemplate();
     }
-
     @Bean
     public ObjectMapper objectMapper(){
         return new ObjectMapper();
+    }
+    @Bean    public CoordinatesConverter coordinatesConverter2(){
+        return new CoordinatesConverter(restTemplate(),objectMapper());
     }
 
 }

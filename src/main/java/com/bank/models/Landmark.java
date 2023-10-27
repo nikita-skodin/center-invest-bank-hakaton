@@ -36,10 +36,10 @@ public class Landmark {
     private String coordinates;
 
     @Column(name = "total_stars")
-    private Double totalStars;
+    private Double totalStars=0.0;
 
     @Column(name = "review_counter")
-    private Double reviewCounter;
+    private Double reviewCounter=0.0;
 
     @Column(name = "rating")
     @Builder.Default

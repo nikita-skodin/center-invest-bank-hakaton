@@ -26,7 +26,7 @@ public class LandmarkDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         LandmarkDTO dto = (LandmarkDTO) target;
 
-        Optional<Landmark> landmarkByTitle = landmarkService.getLandmarksByTitle(dto.getTitle());
+        Optional<Landmark> landmarkByTitle = Optional.ofNullable(landmarkService.getByTitle(dto.getTitle()));
 
         if (landmarkByTitle.isPresent() && !Objects.equals(landmarkByTitle.get().getId(), dto.getId())){
             errors.rejectValue("title", "400",
