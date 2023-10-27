@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class LandmarkService {
     @Transactional
     public <S extends Landmark> S save(S landmark){
         landmark.setCoordinates(coordinatesConverter.getCoordinates(landmark.getAddress()));
+        landmark.setDateOfEvent(Instant.now());
         return landMarkRepository.save(landmark);
     }
 

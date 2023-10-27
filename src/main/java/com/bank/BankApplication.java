@@ -15,15 +15,16 @@ public class BankApplication {
     }
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate2(){
         return new RestTemplate();
     }
     @Bean
     public ObjectMapper objectMapper(){
         return new ObjectMapper();
     }
-    @Bean    public CoordinatesConverter coordinatesConverter2(){
-        return new CoordinatesConverter(restTemplate(),objectMapper());
+    @Bean
+    public CoordinatesConverter coordinatesConverter2(){
+        return new CoordinatesConverter(restTemplate2(),objectMapper());
     }
 
 }

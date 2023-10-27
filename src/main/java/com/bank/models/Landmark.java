@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.ReadOnlyProperty;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,13 @@ public class Landmark {
     @Column(name = "rating")
     @Builder.Default
     private Double rating = 0.0;
+
+    @Column(name = "date_of_publishment")
+    @Builder.Default
+    private Instant dateOfPublish = Instant.now();
+
+    @Column(name = "date_of_event")
+    private Instant dateOfEvent;
 
     @OneToMany(mappedBy = "landmark")
     @Builder.Default

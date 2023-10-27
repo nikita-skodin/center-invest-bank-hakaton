@@ -36,7 +36,9 @@ create table if not exists landmarks
     coordinates    varchar not null,
     total_stars    decimal not null default 0,
     review_counter decimal not null,
-    rating         decimal
+    rating         decimal,
+    date_of_publishment timestamp not null,
+    date_of_event       timestamp not null
 );
 
 create table if not exists events
