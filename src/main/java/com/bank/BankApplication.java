@@ -19,12 +19,8 @@ public class BankApplication {
         return new RestTemplate();
     }
     @Bean
-    public ObjectMapper objectMapper(){
-        return new ObjectMapper();
-    }
-    @Bean
     public CoordinatesConverter coordinatesConverter2(){
-        return new CoordinatesConverter(restTemplate2(),objectMapper());
+        return new CoordinatesConverter(restTemplate2());
     }
 
 }
