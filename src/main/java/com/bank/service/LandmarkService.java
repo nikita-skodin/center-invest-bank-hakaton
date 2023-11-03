@@ -4,19 +4,13 @@ package com.bank.service;
 import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Image;
 import com.bank.models.Landmark;
-import com.bank.repositories.AddressRepository;
 import com.bank.repositories.LandmarkRepository;
-import com.bank.utils.CoordinatesConverter;
-import com.bank.utils.mappers.impl.AddressMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +18,7 @@ import java.util.Optional;
 public class LandmarkService {
     private final LandmarkRepository landMarkRepository;
     private final ImageService imageService;
-    private final CoordinatesConverter coordinatesConverter;
+    private final AddressService addressService;
 
     public Landmark getById(Long id){
         return landMarkRepository.findById(id).orElseThrow(()
@@ -46,7 +40,7 @@ public class LandmarkService {
 
     @Transactional
     public <S extends Landmark> S save(S landmark){
-        landmark.setCoordinates(coordinatesConverter.getCoordinates(landmark.getAddress()));
+        landmark.setCoordinates(addressService.getCoordinatesByAddress(landmark.getAddress()));
         landmark.setDateOfEvent(Instant.now());
         return landMarkRepository.save(landmark);
     }
@@ -54,7 +48,7 @@ public class LandmarkService {
     @Transactional
     public void update(long id, Landmark updatedLandmark) {
         updatedLandmark.setId(id);
-        updatedLandmark.setCoordinates(coordinatesConverter.getCoordinates(updatedLandmark.getAddress()));
+        updatedLandmark.setCoordinates(addressService.getCoordinatesByAddress(updatedLandmark.getAddress()));
         landMarkRepository.save(updatedLandmark);
     }
 

@@ -5,16 +5,14 @@ import com.bank.exceptions.BagRequestException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.PrimitiveIterator;
 
-@Component
+@Deprecated
 @RequiredArgsConstructor
 public class CoordinatesConverter {
 
