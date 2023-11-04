@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Schema(description = "Address dto")
-public class AddressDTO {
+@Schema(description = "Location dto")
+public class LocationDTO {
 
-    @Schema(name = "Address id", example = "1")
+    @Schema(name = "Location id", example = "1")
     private Long id;
     
-    @Schema(name = "Address id", example = "Агрогородок Лесной,Александрова улица, дом 7") // TODO: 026
+    @Schema(name = "Address", example = "Агрогородок Лесной,Александрова улица, дом 7") // TODO: 026
     private String address;
     
-    @Schema(name = "Address id", example = "54.013194, 27.68137") // TODO: 026
+    @Schema(name =  "Coordinates", example = "54.013194, 27.68137") // TODO: 026
     private String coordinates;
 }

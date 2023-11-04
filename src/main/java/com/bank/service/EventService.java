@@ -19,7 +19,7 @@ public class EventService {
     private final ImageService imageService;
 
     private final EventRepository eventRepository;
-    private final AddressService addressService;
+    private final LocationService locationService;
 
     public List<Event> getAll() {
         eventRepository.deleteAllByStartTimeAfter(Instant.now());
@@ -40,13 +40,13 @@ public class EventService {
         Event event = getById(id);
 
         entity.setId(event.getId());
-        entity.setCoordinates(addressService.getCoordinatesByAddress(entity.getAddress()));
+        entity.setCoordinates(locationService.getCoordinatesByAddress(entity.getAddress()));
         return eventRepository.save(entity);
     }
 
     @Transactional
     public <S extends Event> S save(S entity) {
-        entity.setCoordinates(addressService.getCoordinatesByAddress(entity.getAddress()));
+        entity.setCoordinates(locationService.getCoordinatesByAddress(entity.getAddress()));
         return eventRepository.save(entity);
     }
 

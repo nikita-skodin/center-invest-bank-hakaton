@@ -45,7 +45,8 @@ public class AuthController extends MainController{
 
     @PostMapping("/enable")
     public ResponseEntity<Object> enableUser(@RequestBody UserDTO userDTO){
-        userService.enalbe(userDTO.getEmail(), userDTO.getConfirmationCode());
+        userService.enable(userDTO.getEmail(), userDTO.getConfirmationCode());
         return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
     }
+
 }

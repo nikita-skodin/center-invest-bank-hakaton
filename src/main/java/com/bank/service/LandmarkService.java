@@ -18,7 +18,7 @@ import java.util.List;
 public class LandmarkService {
     private final LandmarkRepository landMarkRepository;
     private final ImageService imageService;
-    private final AddressService addressService;
+    private final LocationService locationService;
 
     public Landmark getById(Long id){
         return landMarkRepository.findById(id).orElseThrow(()
@@ -40,7 +40,7 @@ public class LandmarkService {
 
     @Transactional
     public <S extends Landmark> S save(S landmark){
-        landmark.setCoordinates(addressService.getCoordinatesByAddress(landmark.getAddress()));
+        landmark.setCoordinates(locationService.getCoordinatesByAddress(landmark.getAddress()));
         landmark.setDateOfEvent(Instant.now());
         return landMarkRepository.save(landmark);
     }
@@ -48,7 +48,7 @@ public class LandmarkService {
     @Transactional
     public void update(long id, Landmark updatedLandmark) {
         updatedLandmark.setId(id);
-        updatedLandmark.setCoordinates(addressService.getCoordinatesByAddress(updatedLandmark.getAddress()));
+        updatedLandmark.setCoordinates(locationService.getCoordinatesByAddress(updatedLandmark.getAddress()));
         landMarkRepository.save(updatedLandmark);
     }
 

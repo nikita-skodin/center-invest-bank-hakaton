@@ -92,7 +92,7 @@ public class UserService {
     }
 
     @Transactional
-    public void enalbe(String email, String confirmationCode){
+    public void enable(String email, String confirmationCode){
         User user = getByEmail(email);
         if (!user.getConfirmationCode().equals(confirmationCode))
             throw new InvalidOperationException("Code and code confirmation doesnt match");

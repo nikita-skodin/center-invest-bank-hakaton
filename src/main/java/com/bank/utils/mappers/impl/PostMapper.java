@@ -1,7 +1,7 @@
 package com.bank.utils.mappers.impl;
 
-import com.bank.dto.LocationDTO;
-import com.bank.models.Location;
+import com.bank.dto.PostDTO;
+import com.bank.models.Post;
 import com.bank.utils.mappers.Mappable;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,25 +11,26 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class AddressMapper implements Mappable<Location, LocationDTO> {
+public class PostMapper implements Mappable<Post, PostDTO> {
     private final ModelMapper modelMapper;
+
     @Override
-    public Location fromDTO(LocationDTO dto) {
-        return modelMapper.map(dto, Location.class);
+    public Post fromDTO(PostDTO dto) {
+        return modelMapper.map(dto, Post.class);
     }
 
     @Override
-    public LocationDTO toDTO(Location entity) {
-        return modelMapper.map(entity, LocationDTO.class);
+    public PostDTO toDTO(Post entity) {
+        return modelMapper.map(entity, PostDTO.class);
     }
 
     @Override
-    public List<Location> fromDTOs(List<LocationDTO> dtos) {
+    public List<Post> fromDTOs(List<PostDTO> dtos) {
         return dtos.stream().map(this::fromDTO).toList();
     }
 
     @Override
-    public List<LocationDTO> toDTOs(List<Location> entities) {
+    public List<PostDTO> toDTOs(List<Post> entities) {
         return entities.stream().map(this::toDTO).toList();
     }
 }

@@ -1,32 +1,32 @@
 package com.bank.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "address")
+@Table(name = "locations")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address {
+public class Location {
 
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
-    @Column(name="address")
+    @Column(name = "address")
     private String address;
 
     @Column(name = "coordinates")
     private String coordinates;
 
-
+    @OneToMany(mappedBy = "location")
+    private List<Post> post;
 }
