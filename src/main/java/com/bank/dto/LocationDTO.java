@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Location dto")
 public class LocationDTO {
 
-    @Schema(name = "Location id", example = "1")
+    @Schema(name = "id", example = "1")
     private Long id;
     
-    @Schema(name = "Address", example = "Агрогородок Лесной,Александрова улица, дом 7") // TODO: 026
+    @Schema(name = "address", example = "Агрогородок Лесной,Александрова улица, дом 7") // TODO: 026
     private String address;
     
-    @Schema(name =  "Coordinates", example = "54.013194, 27.68137") // TODO: 026
+    @Schema(name =  "coordinates", example = "54.013194, 27.68137") // TODO: 026
     private String coordinates;
 }

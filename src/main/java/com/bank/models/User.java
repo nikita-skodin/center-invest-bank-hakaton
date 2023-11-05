@@ -58,11 +58,11 @@ public class User{
     @NotNull
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewEvent> reviewEvents;
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewLandmark> reviewLandmarks;
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews;
 
     @Column(name = "confirmation_code")
     private String confirmationCode;

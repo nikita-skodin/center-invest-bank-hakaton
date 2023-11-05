@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -42,5 +44,13 @@ public class UserDTO {
             value = "confirmation_code")
     @Schema(name = "confirmation_code", example = "5328")
     private String confirmationCode;
+
+    @Schema(name = "posts")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<PostDTO> posts;
+
+    @Schema(name = "reviews")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private List<ReviewDTO> reviews;
 
 }

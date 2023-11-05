@@ -23,6 +23,10 @@ public class Post {
     @Column(name = "title")
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @Column(name = "description")
     private String description;
 
@@ -57,6 +61,9 @@ public class Post {
     @CollectionTable(name = "posts_images")
     @ElementCollection
     private List<String> images;
+
+    @OneToMany(mappedBy = "post")
+    private List<Review> reviews;
 
     public double getRating(){
         if (this.totalStars != null && this.reviewCounter != null) {
