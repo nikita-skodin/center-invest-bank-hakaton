@@ -28,11 +28,10 @@ public class RatingService {
         return new Rating();
     }
 
-    private void updateUserRank(Rating rating){
-        if (rating.getPoints() > 200){
+    private void updateUserRank(Rating rating) {
+        if (rating.getPoints() > 200) {
             rating.setRank(UserRank.EXPERIENCED_MEMBER);
-        }
-        else if (rating.getPoints() > 450){
+        } else if (rating.getPoints() > 450) {
             rating.setRank(UserRank.PRO_MEMBER);
         }
     }

@@ -14,11 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/reviews")
+@Validated
 public class ReviewController extends MainController {
     private final ReviewService reviewService;
     private final RatingService ratingService;
@@ -63,7 +65,8 @@ public class ReviewController extends MainController {
         Review review = reviewMapper.fromDTO(reviewDTO);
         review.setPost(postService.getById(postId));
         review = reviewService.save(review);
-        ratingService.updateUserRating(50);
+        ratingService.updateUserRating(50); //TODO
+        postService.updateRating(postService.getById(postId), review);
         return ResponseEntity
                 .ok()
                 .body(reviewMapper.toDTO(review));

@@ -2,9 +2,9 @@ package com.bank.service;
 
 
 import com.bank.exceptions.ResourceNotFoundException;
-import com.bank.models.Event;
 import com.bank.models.Image;
 import com.bank.models.Post;
+import com.bank.models.Review;
 import com.bank.models.User;
 import com.bank.repositories.PostRepository;
 import com.bank.utils.enums.PostType;
@@ -54,6 +54,7 @@ public class PostService {
         post.setDateOfPublish(Instant.now());
         post.setLocation(locationService.save(post.getLocation().getAddress()));
         post.setUser(userService.getAuthorizedUser());
+        post.setRating(0.0);
         return postRepository.save(post);
     }
 
@@ -87,6 +88,13 @@ public class PostService {
         if (!images.remove(imageName))
             throw new ResourceNotFoundException("Image with this name not found for this post");
         imageService.removeImage(imageName);
+        postRepository.save(post);
+    }
+
+    @Transactional
+    public void updateRating(Post post, Review review){
+        post.setTotalStars(post.getTotalStars()+review.getStars());
+        post.setReviewCounter(post.getReviewCounter()+1);
         postRepository.save(post);
     }
 }

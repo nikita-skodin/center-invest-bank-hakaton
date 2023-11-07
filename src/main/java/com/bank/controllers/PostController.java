@@ -4,7 +4,6 @@ import com.bank.dto.ImageDTO;
 import com.bank.dto.PostDTO;
 import com.bank.models.Image;
 import com.bank.models.Post;
-import com.bank.security.expression.CustomSecutiryExpression;
 import com.bank.service.PostService;
 import com.bank.utils.enums.PostType;
 import com.bank.utils.mappers.impl.ImageMapper;
@@ -17,13 +16,16 @@ import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v2/posts")
+@Validated
 @Tag(name = "Post Controller", description = "Post API")
-public class PostController {
+public class PostController extends MainController {
     private final PostService postService;
     private final PostMapper postMapper;
     private final ImageMapper imageMapper;
@@ -54,7 +56,8 @@ public class PostController {
 
     @Operation(summary = "Create post")
     @PostMapping("/create")
-    public ResponseEntity<Object> createPost(@Valid @RequestBody PostDTO postDTO){
+    public ResponseEntity<Object> createPost(@RequestBody @Valid PostDTO postDTO, BindingResult bindingResult){
+        checkBindingResult(bindingResult);
         Post post = postMapper.fromDTO(postDTO);
         return ResponseEntity
                 .ok()

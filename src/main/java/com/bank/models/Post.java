@@ -44,7 +44,7 @@ public class Post {
 
     @Column(name = "rating")
     @Builder.Default
-    private Double rating = 0.0;
+    private Double rating=0.0;
 
     @Column(name = "date_of_publishment")
     private Instant dateOfPublish;
@@ -65,8 +65,9 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<Review> reviews;
 
+
     public double getRating(){
-        if (this.totalStars != null && this.reviewCounter != null) {
+        if (this.totalStars != null && this.reviewCounter != null && this.reviewCounter != 0) {
             rating = this.totalStars / this.reviewCounter;
         }
         return rating;

@@ -10,9 +10,9 @@ services:
       context: .
     container_name: bank
     depends_on:
-      - db
+      - minio
     env_file:
-      - .env
+      - .env-prod
     ports:
       - '8080:8080'
     networks:
