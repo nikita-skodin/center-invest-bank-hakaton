@@ -58,12 +58,6 @@ public class User{
     @NotNull
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewEvent> reviewEvents;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReviewLandmark> reviewLandmarks;
-
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 

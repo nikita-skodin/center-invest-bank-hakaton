@@ -1,14 +1,12 @@
 package com.bank.service;
 
-import com.bank.dto.UserDTO;
 import com.bank.exceptions.InvalidOperationException;
 import com.bank.exceptions.ResourceNotFoundException;
-import com.bank.models.Event;
 import com.bank.models.Rating;
-import com.bank.security.JWTEntity;
-import com.bank.utils.enums.Role;
 import com.bank.models.User;
 import com.bank.repositories.UserRepository;
+import com.bank.security.JWTEntity;
+import com.bank.utils.enums.Role;
 import com.bank.utils.enums.UserRank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)

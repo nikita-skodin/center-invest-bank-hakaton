@@ -1,13 +1,14 @@
 package com.bank.controllers;
 
 
-import com.bank.dto.ReviewLandmarkDTO;
+import com.bank.dto.ReviewDTO;
 import com.bank.dto.UserDTO;
 import com.bank.models.User;
 import com.bank.service.EmailService;
+import com.bank.service.ReviewService;
 import com.bank.service.UserService;
 import com.bank.utils.enums.EmailType;
-import com.bank.utils.mappers.impl.ReviewLandmarkMapper;
+import com.bank.utils.mappers.impl.ReviewMapper;
 import com.bank.utils.mappers.impl.UserMapper;
 import com.bank.validators.UserDTOValidator;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,8 +32,9 @@ public class UserController extends MainController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final UserDTOValidator userDTOValidator;
-    private final ReviewLandmarkMapper reviewLandmarkMapper;
+    private final ReviewMapper reviewMapper;
     private final EmailService emailService;
+    private final ReviewService reviewService;
 
     private final static String GET_ALL_USERS = "";
     private final static String CREATE_USER = "";
@@ -59,12 +61,12 @@ public class UserController extends MainController {
 
     @Operation(summary = "Get users review")
     @GetMapping(GET_REVIEW_LIST)
-    public ResponseEntity<List<ReviewLandmarkDTO>> getReviewList(
+    public ResponseEntity<List<ReviewDTO>> getReviewList(
             @PathVariable("user_id") Long userId) {
-        User byId = userService.getById(userId);
+        User user = userService.getById(userId);
         return ResponseEntity
                 .ok()
-                .body(reviewLandmarkMapper.toDTOs(byId.getReviewLandmarks()));
+                .body(reviewMapper.toDTOs(user.getReviews()));
     }
 
     @Operation(summary = "Create new user")

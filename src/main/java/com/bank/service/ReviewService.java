@@ -4,6 +4,7 @@ import com.bank.exceptions.ResourceNotFoundException;
 import com.bank.models.Review;
 import com.bank.models.User;
 import com.bank.repositories.ReviewRepository;
+import com.bank.utils.enums.PostType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,12 @@ import java.util.List;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final UserService userService;
+
+
+    public List<Review> getByUserAndType(User user, PostType type){
+        return user.getReviews().stream().filter(el -> el.getPost().getType() == type).toList();
+    }
+
 
     public boolean isReviewOwner(User user){
         return reviewRepository.existsReviewByUser(user);
